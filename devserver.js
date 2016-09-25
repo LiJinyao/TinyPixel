@@ -1,9 +1,9 @@
 var WebpackDevServer = require('webpack-dev-server')
 var webpack          = require('webpack')
-var config = require('./webpack.dev.config')
+var config           = require('./webpack.dev.config')
 var server = new WebpackDevServer(webpack(config), {
-  hot: true,
-  contentBase: "./src",
+  hot:                true,
+  contentBase:        "./src",
   historyApiFallback: true,
   stats: {
     colors: true,
