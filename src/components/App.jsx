@@ -3,6 +3,8 @@ import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
 import OpenFileIcon from 'material-ui/svg-icons/action/open-in-browser'
 import { receiveFile } from '../actions'
+import ImageBoard from './ImageBoard'
+
 class App extends Component {
   onFileChoose(event) {
     const dispatch = this.props.dispatch;
@@ -11,6 +13,7 @@ class App extends Component {
   }
   render() {
     return (
+      <div>
         <AppBar
         title="TinyPixel"
         showMenuIconButton={false}
@@ -23,6 +26,8 @@ class App extends Component {
           onChange={this.onFileChoose.bind(this)}/>
           </FlatButton>}
         />
+        <ImageBoard></ImageBoard>
+      </div>
     )
   }
 }
