@@ -8,7 +8,6 @@ import {
 function fileRepo(state = {
   file: null,
 }, action) {
-  console.log("receive file.");
   switch (action.type) {
     case RECEIVE_FILE:
       // TODO: save file in redcers.
@@ -17,12 +16,11 @@ function fileRepo(state = {
     return state
   }
 }
-
+// image is an ImageData object.
+// https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas
 function originImage(state = {
   image: null,
 }, action) {
-  console.log("receive origin image.")
-  console.log(action);
   switch (action.type) {
     case RECEIVE_ORIGIN_IMAGE:
       return Object.assign({}, state, { image: action.image })

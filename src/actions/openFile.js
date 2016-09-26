@@ -1,4 +1,4 @@
-import { fileToImage } from './originImage'
+import { fileToImageData } from './originImage'
 export const RECEIVE_FILE = 'RECEIVE_FILE'
 export function receiveFile(file) {
   return {
@@ -8,7 +8,7 @@ export function receiveFile(file) {
 }
 export function setImageFile(file) {
   return dispatch => {
-    dispatch(fileToImage(file))
+    dispatch(fileToImageData(file))
     dispatch(receiveFile(file))
   }
 }

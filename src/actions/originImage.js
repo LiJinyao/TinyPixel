@@ -7,11 +7,23 @@ export function receiveOriginImage(image) {
   }
 }
 
-export function fileToImage(file) {
+export function fileToImageData(file) {
   return dispatch => {
-    console.log("convert file to image.")
       const image = new Image()
       image.src = URL.createObjectURL(file)
-      dispatch(receiveOriginImage(image))
+      const canvas = document.createElement('canvas')
+      image.onload = () => {
+        canvas.width = image.width
+        canvas.height = image.height
+        const ctx = canvas.getContext('2d')
+        ctx.drawImage(image, 0, 0)
+        image.style.display = 'none'
+        const imageData = canvas.getContext('2d').getImageData(0, 0, image.width, image.height)
+        console.log(imageData)
+        console.log(`image width: ${image.width}, height: ${image.height}`)
+        dispatch(receiveOriginImage(imageData))
+      }
+      //document.body.appendChild(canvas)
+
   }
 }
