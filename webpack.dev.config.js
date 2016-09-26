@@ -7,7 +7,7 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:2333', // WebpackDevServer host and port
     'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
-    './src/app' // Your appʼs entry point
+    './src/index' // Your appʼs entry point
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -26,6 +26,11 @@ module.exports = {
       test: /\.jsx?$/,
       loaders: ['jsx?harmony', 'babel'],
       include: path.join(__dirname, 'src')
-    }]
+    },
+    {
+      test: /\.styl$/,
+      loader: 'style-loader!css-loader!stylus-loader'
+    }
+  ]
   }
 }
