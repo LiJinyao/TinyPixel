@@ -3,3 +3,5 @@ node_modules/
 dist/
 .idea/
 .npm-debug.log
+.tags
+.tags1

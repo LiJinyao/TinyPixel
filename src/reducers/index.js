@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux'
 import { RECEIVE_FILE } from '../actions'
 
-function file(state, action) {
+function fileRepo(state = {
+  file: null,
+}, action) {
   switch (action.type) {
     case RECEIVE_FILE:
       // TODO: save file in redcers.
@@ -12,7 +14,7 @@ function file(state, action) {
 }
 
 const rootReducer = combineReducers({
-  file,
+  fileRepo,
 });
 
 export default rootReducer
