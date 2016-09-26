@@ -2,14 +2,13 @@ import React, { Component } from 'react'
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
 import OpenFileIcon from 'material-ui/svg-icons/action/open-in-browser'
-import { receiveFile } from '../actions'
-import ImageBoard from './ImageBoard'
+import { setImageFile } from '../actions'
+import ImageBoard from '../containers/ImageBoard'
 
 class App extends Component {
   onFileChoose(event) {
     const dispatch = this.props.dispatch;
-    dispatch(receiveFile(event.target.files[0]));
-    console.log(event.target.files[0]);
+    dispatch(setImageFile(event.target.files[0]));
   }
   render() {
     return (

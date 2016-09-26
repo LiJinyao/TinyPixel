@@ -1,3 +1,7 @@
 import React from 'react'
-const ImageBoard = () => (<h1>imageboard</h1>)
+const ImageBoard = ({image}) => {
+  return (
+    <img src={image.src} alt=""/>
+  )
+}
 export default ImageBoard

@@ -1,14 +1,18 @@
 import React, { Component, PropTypes } from 'react'
 import { connect }                     from 'react-redux'
-import ImageBoard                      from '../components/ImageBoard'
+import Board                      from '../components/ImageBoard'
 
 class ImageBoard extends Component {
   render() {
+    console.log("render originImage.");
     const { image } = this.props
-    return (<ImageBoard/>)
+    if (image) {
+      return (<Board image={image}/>)
+    }
+    return (<h1>Please open an image.</h1>)
   }
 }
 const mapStateToProps = state => ({
-  image:
+  image: state.originImage.image,
 })
 export default connect(mapStateToProps)(ImageBoard)

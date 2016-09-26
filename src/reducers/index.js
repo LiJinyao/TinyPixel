@@ -1,13 +1,14 @@
 import { combineReducers } from 'redux'
 import {
   RECEIVE_FILE,
-  REVEIVE_ORIGIN_IMAGE,
+  RECEIVE_ORIGIN_IMAGE,
   RECEIVE_PROCESSED_IMAGE,
 } from '../actions'
 
 function fileRepo(state = {
   file: null,
 }, action) {
+  console.log("receive file.");
   switch (action.type) {
     case RECEIVE_FILE:
       // TODO: save file in redcers.
@@ -20,8 +21,10 @@ function fileRepo(state = {
 function originImage(state = {
   image: null,
 }, action) {
+  console.log("receive origin image.")
+  console.log(action);
   switch (action.type) {
-    case REVEIVE_ORIGIN_IMAGE:
+    case RECEIVE_ORIGIN_IMAGE:
       return Object.assign({}, state, { image: action.image })
     default:
       return state
