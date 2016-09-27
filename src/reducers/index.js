@@ -24,15 +24,6 @@ function originImage(state = {
   switch (action.type) {
     case RECEIVE_ORIGIN_IMAGE:
       return Object.assign({}, state, { image: action.image })
-    default:
-      return state
-  }
-}
-
-function processedImage(state = {
-  image: null,
-}, action) {
-  switch (action.type) {
     case RECEIVE_PROCESSED_IMAGE:
       return Object.assign({}, state, { image: action.image })
     default:
@@ -40,10 +31,21 @@ function processedImage(state = {
   }
 }
 
+// function processedImage(state = {
+//   image: null,
+// }, action) {
+//   switch (action.type) {
+//     case RECEIVE_PROCESSED_IMAGE:
+//       return Object.assign({}, state, { image: action.image })
+//     default:
+//       return state
+//   }
+// }
+
 const rootReducer = combineReducers({
   fileRepo,
   originImage,
-  processedImage,
+  // processedImage,
 });
 
 export default rootReducer

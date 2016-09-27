@@ -13,8 +13,10 @@ export function fileToImageData(file) {
       image.src = URL.createObjectURL(file)
       const canvas = document.createElement('canvas')
       image.onload = () => {
-        canvas.width = image.width
-        canvas.height = image.height
+        canvas.setAttribute('width', image.width)
+        canvas.setAttribute('height', image.height)
+        //canvas.width = image.width
+        //canvas.height = image.height
         const ctx = canvas.getContext('2d')
         ctx.drawImage(image, 0, 0)
         image.style.display = 'none'
@@ -24,6 +26,5 @@ export function fileToImageData(file) {
         dispatch(receiveOriginImage(imageData))
       }
       //document.body.appendChild(canvas)
-
   }
 }

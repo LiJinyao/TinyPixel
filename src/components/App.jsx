@@ -4,7 +4,6 @@ import FlatButton from 'material-ui/FlatButton'
 import OpenFileIcon from 'material-ui/svg-icons/action/open-in-browser'
 import { setImageFile } from '../actions'
 import ImageBoard from '../containers/ImageBoard'
-
 class App extends Component {
   onFileChoose(event) {
     const dispatch = this.props.dispatch;
