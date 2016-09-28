@@ -3,16 +3,21 @@ import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
 import OpenFileIcon from 'material-ui/svg-icons/action/open-in-browser'
 import { setImageFile } from '../actions'
-import ImageBoard from '../containers/ImageBoard'
+import MainViewer from '../containers/MainViewer'
 class App extends Component {
   onFileChoose(event) {
     const dispatch = this.props.dispatch;
     dispatch(setImageFile(event.target.files[0]));
   }
   render() {
+    const style = {
+      position: 'fixed',
+      top: 0,
+    }
     return (
       <div>
         <AppBar
+        style={style}
         title="TinyPixel"
         showMenuIconButton={false}
         iconElementRight={<FlatButton label="Open File" icon={<OpenFileIcon/>}>
@@ -24,7 +29,7 @@ class App extends Component {
           onChange={this.onFileChoose.bind(this)}/>
           </FlatButton>}
         />
-        <ImageBoard></ImageBoard>
+        <MainViewer/>
       </div>
     )
   }

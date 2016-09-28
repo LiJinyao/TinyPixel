@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { connect }                     from 'react-redux'
-import Board                      from '../components/ImageBoard'
+import Board                      from '../components/MainViewer'
 
-class ImageBoard extends Component {
+class MainViewer extends Component {
   render() {
     const { image } = this.props
     if (image) {
@@ -14,4 +14,4 @@ class ImageBoard extends Component {
 const mapStateToProps = state => ({
   image: state.originImage.image,
 })
-export default connect(mapStateToProps)(ImageBoard)
+export default connect(mapStateToProps)(MainViewer)
