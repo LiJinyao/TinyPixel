@@ -14,9 +14,21 @@ import { grayscale } from './imageProcess/grayscale'
 //     type: GRAYSCALE_START
 //   }
 // }
-export const PROCESSES = {
-  GRAYSCALE: 'GRAYSCALE'
-}
+export const PROCESSES = new Object({
+  GRAYSCALE: 'GRAYSCALE',
+  BINARIZATION: 'BINARIZATION',
+})
+let processNameArray = [];
+const processNames = [
+  '灰度',
+  '二值化',
+]
+
+Object.keys(PROCESSES).forEach((val, i) => {
+    processNameArray.push([val, processNames[i]])
+});
+export const PROCESSES_NAME = new Map(processNameArray)
+
 export function process(methodName) {
   return (dispatch, getState) => {
     const imageData = getState().image.image

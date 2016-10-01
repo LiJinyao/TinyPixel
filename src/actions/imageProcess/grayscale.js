@@ -1,4 +1,4 @@
-export function grayscale(imageData) {
+export function grayscale(imageData, option) {
   console.log('to Gray')
   let data = imageData.data
   for (var i = 0; i < data.length; i += 4) {

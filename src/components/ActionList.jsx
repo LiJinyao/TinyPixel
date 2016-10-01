@@ -1,8 +1,8 @@
-import React, { Component, PropTypes } from 'react'
-import Paper                           from 'material-ui/Paper';
-import DropDownMenu                    from 'material-ui/DropDownMenu';
-import MenuItem                        from 'material-ui/MenuItem';
-import { PROCESSES, process }          from '../actions/'
+import React, { Component, PropTypes }         from 'react'
+import Paper                                   from 'material-ui/Paper';
+import DropDownMenu                            from 'material-ui/DropDownMenu';
+import MenuItem                                from 'material-ui/MenuItem';
+import { PROCESSES, process, PROCESSES_NAME  } from '../actions/'
 class ActionList extends Component {
   constructor(props) {
     super(props)
@@ -18,10 +18,14 @@ class ActionList extends Component {
       actionValue: value,
     })
     //dispatch image process action
+    const pros = PROCESSES.keys()
+
     this.props.dispatch(process(PROCESSES.GRAYSCALE))
   }
   render() {
     const { hasImage } = this.props
+    const menu = []
+    PROCESSES_NAME.forEach((pro, i) => menu.push(<MenuItem key={i+1} value={i+1} primaryText={pro} />))
     return (
       <Paper
       className="action-list-panel"
@@ -34,8 +38,10 @@ class ActionList extends Component {
       onChange={this.handleActionChange.bind(this)}
       autoWidth
       >
-      <MenuItem value={1} primaryText="转为灰度" />
-      <MenuItem value={2} primaryText="Every Night" />
+      {
+        menu
+      }
+
       </DropDownMenu>
       </Paper>
     )
