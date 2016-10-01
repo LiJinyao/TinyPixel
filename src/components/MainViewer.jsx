@@ -58,7 +58,6 @@ class ImageBoard extends Component {
   onScale(offset) {
     let zoom = this.state.zoom
     zoom += offset
-    console.log(zoom);
     if (zoom <= 300 && zoom >= 0) {
       this.setState({ zoom: zoom })
     }

@@ -4,14 +4,15 @@ import Board                      from '../components/MainViewer'
 
 class MainViewer extends Component {
   render() {
-    const { image } = this.props
-    if (image) {
-      return (<Board imageData={image}/>)
+    const { processedImage, originImage } = this.props
+    if (processedImage || originImage) {
+      return (<Board imageData={processedImage || originImage}/>)
     }
     return (<h1>Please open an image.</h1>)
   }
 }
 const mapStateToProps = state => ({
-  image: state.image.image,
+  originImage: state.image.originImage,
+  processedImage: state.image.processedImage,
 })
 export default connect(mapStateToProps)(MainViewer)

@@ -12,7 +12,7 @@ class App extends Component {
     return (<Index file={file} dispatch={dispatch}/>)
   }
 }
-App.PropTypes = {
+App.propTypes = {
     dispatch: PropTypes.func.isRequired,
 }
 const mapStateToProps = state => ({

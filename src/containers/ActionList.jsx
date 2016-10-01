@@ -11,10 +11,10 @@ class ActionListContainer extends Component {
       return (<ActionList dispatch={dispatch} hasImage={image? true: false}/>)
     }
 }
-ActionListContainer.PropTypes = {
+ActionListContainer.propTypes = {
     dispatch: PropTypes.func.isRequired,
 }
 const mapStateToProps = state => ({
-  image: state.image.image,
+  image: state.image.originImage,
 })
 export default connect(mapStateToProps)(ActionListContainer)
