@@ -1,4 +1,4 @@
-import { fileToImageData } from './originImage'
+import { fileToImageData } from './getImage'
 export const RECEIVE_FILE = 'RECEIVE_FILE'
 export function receiveFile(file) {
   return {

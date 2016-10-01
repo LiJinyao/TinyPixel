@@ -18,33 +18,26 @@ function fileRepo(state = {
 }
 // image is an ImageData object.
 // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas
-function originImage(state = {
+
+function image(state = {
   image: null,
 }, action) {
   switch (action.type) {
     case RECEIVE_ORIGIN_IMAGE:
       return Object.assign({}, state, { image: action.image })
     case RECEIVE_PROCESSED_IMAGE:
+    console.log("reveice processed image");
+
       return Object.assign({}, state, { image: action.image })
     default:
       return state
   }
 }
 
-// function processedImage(state = {
-//   image: null,
-// }, action) {
-//   switch (action.type) {
-//     case RECEIVE_PROCESSED_IMAGE:
-//       return Object.assign({}, state, { image: action.image })
-//     default:
-//       return state
-//   }
-// }
 
 const rootReducer = combineReducers({
   fileRepo,
-  originImage,
+  image,
   // processedImage,
 });
 

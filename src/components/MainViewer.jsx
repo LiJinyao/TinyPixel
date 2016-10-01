@@ -7,7 +7,7 @@ class ImageBoard extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      zoom: 50, // zoom ratio 100 ~ 0
+      zoom: 100, // zoom ratio 100 ~ 0
     }
   }
   componentDidMount() {
@@ -21,8 +21,8 @@ class ImageBoard extends Component {
     window.removeEventListener('resize', this.resize);
   }
   componentDidUpdate() {
-    //this.draw()
-    this.onWindowResize()
+    this.draw()
+
   }
   // draw imagedata into the canvas.
   draw() {

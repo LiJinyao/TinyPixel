@@ -12,6 +12,6 @@ class MainViewer extends Component {
   }
 }
 const mapStateToProps = state => ({
-  image: state.originImage.image,
+  image: state.image.image,
 })
 export default connect(mapStateToProps)(MainViewer)

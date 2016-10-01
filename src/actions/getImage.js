@@ -1,4 +1,5 @@
 // hold the origin image
+const canvas = document.createElement('canvas')
 export const RECEIVE_ORIGIN_IMAGE = 'RECEIVE_ORIGIN_IMAGE'
 export function receiveOriginImage(image) {
   return {
@@ -6,7 +7,6 @@ export function receiveOriginImage(image) {
     image,
   }
 }
-
 export function fileToImageData(file) {
   return dispatch => {
       const image = new Image()
@@ -15,8 +15,6 @@ export function fileToImageData(file) {
       image.onload = () => {
         canvas.setAttribute('width', image.width)
         canvas.setAttribute('height', image.height)
-        //canvas.width = image.width
-        //canvas.height = image.height
         const ctx = canvas.getContext('2d')
         ctx.drawImage(image, 0, 0)
         image.style.display = 'none'
@@ -25,6 +23,24 @@ export function fileToImageData(file) {
         console.log(`image width: ${image.width}, height: ${image.height}`)
         dispatch(receiveOriginImage(imageData))
       }
-      //document.body.appendChild(canvas)
   }
+}
+
+export const RECEIVE_PROCESSED_IMAGE = 'RECEIVE_PROCESSED_IMAGE'
+// image is an imageData object.
+export function receiveProcessedImage(image) {
+  const ctx = canvas.getContext("2d")
+  ctx.clearRect(0, 0, image.width, image.height)
+  const newImage = copyImageData(ctx, image)
+  return {
+    type: RECEIVE_PROCESSED_IMAGE,
+    image: newImage,
+  }
+}
+// deep copy an imageData object
+function copyImageData(ctx, src)
+{
+    var dst = ctx.createImageData(src.width, src.height);
+    dst.data.set(src.data);
+    return dst;
 }
