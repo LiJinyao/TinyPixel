@@ -8,6 +8,7 @@ export function receiveFile(file) {
 }
 export function setImageFile(file) {
   return dispatch => {
+    // convert file to ImageData and tell everyone we receive a file.
     dispatch(fileToImageData(file))
     dispatch(receiveFile(file))
   }

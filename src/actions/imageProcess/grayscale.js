@@ -1,3 +1,9 @@
+/**
+ * grayscale.
+ * 灰度化。
+ * options: { type: 'AVERAGE' }
+ */
+
 export const supportTypes = {
   AVERAGE:          'AVERAGE',
   WEIGHTED_AVERAGE: 'WEIGHTED_AVERAGE',

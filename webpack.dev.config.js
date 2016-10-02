@@ -5,6 +5,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
   devtool: 'eval',
   entry: [
+    'babel-polyfill',
     'webpack-dev-server/client?http://localhost:2333', // WebpackDevServer host and port
     'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
     './src/index' // Your appʼs entry point

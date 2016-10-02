@@ -13,7 +13,12 @@ class GrayScale extends Component {
     super(props)
     this.state = {
       type: supportTypes.AVERAGE,
+      target: 'ORIGIN',
     }
+  }
+  componentDidMount() {
+    // init option.
+    this.props.handleOptionChange(this.state)
   }
   handleTypeChange(event, val) {
     this.setState({ type: val })
