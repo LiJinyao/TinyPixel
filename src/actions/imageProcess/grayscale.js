@@ -28,19 +28,15 @@ export function grayscale(imageData, { type = supportTypes.AVERAGE } = {}) {
   let grayFunction = average
   switch (type) {
     case supportTypes.WEIGHTED_AVERAGE:
-      console.log('WEIGHTED_AVERAGE');
       grayFunction = weightAgerage
       break;
     case supportTypes.MIN:
-    console.log("min");
       grayFunction = min
       break;
     case supportTypes.MAX:
-    console.log("max");
       grayFunction = max
       break;
     default:
-      console.log('AVERAGE');
       grayFunction = average
 
   }

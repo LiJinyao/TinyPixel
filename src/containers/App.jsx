@@ -8,14 +8,15 @@ class App extends Component {
     // if file not exists, ask user upload one.
   }
   render() {
-    const { file, dispatch} = this.props
-    return (<Index file={file} dispatch={dispatch}/>)
+    const { file, dispatch, processing } = this.props
+    return (<Index file={file} dispatch={dispatch} processing={processing}/>)
   }
 }
 App.propTypes = {
     dispatch: PropTypes.func.isRequired,
 }
 const mapStateToProps = state => ({
-    file: state.fileRepo.file,
+    file:       state.fileRepo.file,
+    processing: state.image.processing,
 })
 export default connect(mapStateToProps)(App)

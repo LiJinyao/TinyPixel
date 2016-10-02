@@ -46,11 +46,11 @@ class ActionList extends Component {
     this.props.dispatch(process(pros[this.state.actionValue - 1], this.state.option))
   }
   handleOptionChange(opt) {
-    console.log({ option: Object.assign(this.state.option, opt) });
     this.setState({ option: Object.assign(this.state.option, opt) })
   }
   render() {
-    const { hasImage } = this.props
+    const { hasImage, processing } = this.props
+    console.log("processing: " + processing);
     return (
       <Paper
       className="action-list-panel"
@@ -70,7 +70,7 @@ class ActionList extends Component {
       <OptionPanel
       type={pros[this.state.actionValue - 1]}
       handleOptionChange={this.handleOptionChange.bind(this)}
-      disabled={!hasImage }
+      disabled={(!hasImage || processing)}
       />
       </Paper>
     )

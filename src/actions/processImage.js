@@ -3,8 +3,13 @@ import { receiveProcessedImage } from './getImage'
 import { grayscale }             from './imageProcess/grayscale'
 import { scale } from './imageProcess/scale'
 import { copyImageData }         from './imageProcess/util'
-// canvas for deep copy a imageData.
 
+export const PROCESS_START = 'PROCESS_START'
+export function processStart() {
+  return {
+    type: PROCESS_START,
+  }
+}
 
 export const PROCESSES = new Object({
   GRAYSCALE: 'GRAYSCALE',
@@ -20,32 +25,35 @@ export const PROCESSES = new Object({
 export function process(methodName, option) {
   return (dispatch, getState) => {
     // if processedImage exists, use processed image for multiple opreation.
+    dispatch(processStart(methodName))
     let temp = null
     if(option.target === 'ORIGIN') {
       temp = getState().image.originImage
-      console.log("origin");
-      console.log(temp);
     } else {
       temp = getState().image.processedImage || getState().image.originImage
     }
-    console.log('target: ' + option.target)
     // deep copy imagedata because it is hold in reducers.
     const imageData = copyImageData(temp)
+    let processFunc = null
     // use different process function according to methodName.
-    let processedImage = null
     switch (methodName) {
       case PROCESSES.GRAYSCALE:
-        processedImage = grayscale(imageData, option)
+        processFunc = grayscale
+        //processedImage = grayscale(imageData, option)
         break;
       case PROCESSES.SCALE:
-        processedImage = scale(imageData, option)
+        processFunc = scale
+        //processedImage = scale(imageData, option)
         break;
       default:
       // do nothing.
         break;
     }
-    console.log("processed");
-    console.log(processedImage);
-    dispatch(receiveProcessedImage(processedImage))
+    const imageProcess = new Promise(function(resolve, reject) {
+      const image = processFunc(imageData, option)
+      resolve(image)
+    })
+    imageProcess.then(image => dispatch(receiveProcessedImage(image)))
+
   }
 }
