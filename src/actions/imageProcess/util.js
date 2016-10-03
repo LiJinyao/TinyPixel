@@ -19,3 +19,13 @@ export function getPixelPosition(width, height) {
   positions[Symbol.iterator] = positions
   return positions
 }
+
+export function matrixMultiplication(a, b) {
+  return a.map(row => {
+    return row.map((_, i) => {
+      return row.reduce((sum, cell, j) => {
+        return sum + cell * b[j][i]
+      }, 0)
+    })
+  })
+}

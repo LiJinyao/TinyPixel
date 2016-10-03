@@ -2,11 +2,12 @@
  * scale iamge.
  * options: { ratio: {float}, interpolation: 'NEAREST_NEIGHBOR' }
  */
-import { getPixelPosition, getCoordinate } from './util'
+import { getPixelPosition, getCoordinate, matrixMultiplication } from './util'
 
 export const INTERPOLATION = {
   NEAREST_NEIGHBOR: 'NEAREST_NEIGHBOR', // 最临近插值
   BILINEAR: 'BILINEAR', // 双线性插值
+  BICUBIC: 'BICUBIC', // 双三次插值
 }
 // 最临近插值
 function nearestNeighbor(dPosition, oCoor, width, height, dWidth, dHeight, data, dData) {
@@ -50,6 +51,48 @@ function bilinear(dPosition, oCoor, width, height, dWidth, dHeight, data, dData)
       }
     }
 }
+
+/**
+ * 双三次插值（英语：Bicubic interpolation）
+ */
+function bicubic(dPosition, oCoor, width, height, dWidth, dHeight, data, dData) {
+  // S 函数
+  function S(x) {
+    const absX = Math.abs(x)
+    if (0 <= absX && absX < 1) {
+      return 1 - 2 * absX * absX + absX * absX * absX
+    } else if (1 <= absX && absX < 2) {
+      return 4 - 8 * absX + 5 * absX * absX - absX * absX * absX
+    }
+    // absX >= 2
+    return 0
+  }
+
+  for(const [dX, dY, dIndex] of dPosition()) {
+    const tx = dX * (width / dWidth)
+    const ty = dY * (height / dHeight)
+    const i = Math.floor(tx)
+    const j = Math.floor(ty)
+    const u = tx - i
+    const v = ty - j
+    // A矩阵 1 X 4
+    const A = [[S(u + 1), S(u), S(u - 1), S(u - 2)]]
+    // C矩阵 4 X 1
+    const C = [[S(v + 1)], [S(v)], [S(v - 1)], [S(v - 2)]]
+
+    // r, g, b, a
+    for(let s = 0; s <= 3; ++s) {
+      // B矩阵 4 X 4
+      const B = [
+        [data[oCoor(i - 1, j - 1) + s], data[oCoor(i - 1, j) + s], data[oCoor(i - 1, j + 1) + s], data[oCoor(i - 1, j + 2) + s]],
+        [data[oCoor(i, j - 1) + s], data[oCoor(i, j) + s], data[oCoor(i, j + 1) + s], data[oCoor(i, j + 2) + s]],
+        [data[oCoor(i + 1, j - 1) + s], data[oCoor(i + 1, j) + s], data[oCoor(i + 1, j + 1) + s], data[oCoor(i + 1, j + 2) + s]],
+        [data[oCoor(i + 2, j - 1) + s], data[oCoor(i + 2, j) + s], data[oCoor(i + 2, j + 1) + s], data[oCoor(i + 2, j + 2) + s]],
+      ]
+      dData[dIndex + s] = matrixMultiplication(matrixMultiplication(A, B), C)[0][0]
+    }
+  }
+}
 export default function scale(imageData, { ratio = 1, type = INTERPOLATION.NEAREST_NEIGHBOR } = {}) {
   if (ratio === 1) {
     return imageData
@@ -69,6 +112,9 @@ export default function scale(imageData, { ratio = 1, type = INTERPOLATION.NEARE
   switch (type) {
     case INTERPOLATION.BILINEAR:
       bilinear(dPosition, oCoor, width, height, dWidth, dHeight, data, dData)
+      break;
+    case INTERPOLATION.BICUBIC:
+      bicubic(dPosition, oCoor, width, height, dWidth, dHeight, data, dData)
       break;
     default:
       nearestNeighbor(dPosition, oCoor, width, height, dWidth, dHeight, data, dData)

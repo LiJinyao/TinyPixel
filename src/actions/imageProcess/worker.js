@@ -14,6 +14,5 @@ const op = {
 }
 onmessage = ({ data: { opName, imageData, option } }) => {
   const result = op[opName](imageData, option)
-  console.log(result);
   postMessage(result)
 }
