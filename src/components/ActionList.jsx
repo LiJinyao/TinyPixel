@@ -58,9 +58,15 @@ class ActionList extends Component {
       zDepth={2}
       >
       <div>
-        <p className="choose-action">选择操作</p>
+        {!processing &&
+          <p className="choose-action">选择操作</p>
+        }
+
         {processing &&
-          <CircularProgress size={0.5} style={{verticalAlign: 'middle'}}/>
+          <div>
+            <p className="choose-action">正在处理</p>
+            <CircularProgress size={0.5} style={{verticalAlign: 'middle'}}/>
+          </div>
         }
       </div>
 
