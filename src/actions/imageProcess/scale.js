@@ -2,7 +2,7 @@
  * scale iamge.
  * options: { ratio: {float}, interpolation: 'NEAREST_NEIGHBOR' }
  */
-import { getPixelPosition, getCoordinate, copyImageData } from './util'
+import { getPixelPosition, getCoordinate } from './util'
 
 export const INTERPOLATION = {
   NEAREST_NEIGHBOR: 'NEAREST_NEIGHBOR', // 最临近插值
@@ -50,7 +50,7 @@ function bilinear(dPosition, oCoor, width, height, dWidth, dHeight, data, dData)
       }
     }
 }
-export function scale(imageData, { ratio = 1, type = INTERPOLATION.NEAREST_NEIGHBOR } = {}) {
+export default function scale(imageData, { ratio = 1, type = INTERPOLATION.NEAREST_NEIGHBOR } = {}) {
   if (ratio === 1) {
     return imageData
   }
@@ -74,6 +74,10 @@ export function scale(imageData, { ratio = 1, type = INTERPOLATION.NEAREST_NEIGH
       nearestNeighbor(dPosition, oCoor, width, height, dWidth, dHeight, data, dData)
   }
 
-  const dImage = copyImageData(imageData, dWidth, dHeight, dData)
-  return dImage
+  // const dImage = copyImageData(imageData, dWidth, dHeight, dData)
+  return {
+    data: dData,
+    width: dWidth,
+    height: dHeight,
+  }
 }

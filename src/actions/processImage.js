@@ -1,8 +1,9 @@
 //all image process function come here
 import { receiveProcessedImage } from './getImage'
 import { grayscale }             from './imageProcess/grayscale'
-import { scale } from './imageProcess/scale'
-import { copyImageData }         from './imageProcess/util'
+import { scale }                 from './imageProcess/scale'
+import { PROCESSES }             from './imageProcess/processName'
+import ProcessWorker             from 'worker-loader!./imageProcess/worker'
 
 export const PROCESS_START = 'PROCESS_START'
 export function processStart() {
@@ -11,10 +12,14 @@ export function processStart() {
   }
 }
 
-export const PROCESSES = new Object({
-  GRAYSCALE: 'GRAYSCALE',
-  SCALE: 'SCALE',
-})
+// deep copy an ImageData object
+const ctx = document.createElement('canvas').getContext('2d')
+export function copyImageData(src, width = src.width, height = src.height, data = src.data) {
+  const dst = ctx.createImageData(width, height);
+  dst.data.set(data);
+  return dst;
+}
+const worker = new ProcessWorker()
 /**
  * process imageData
  * @param  {String} methodName a process method name definded in PROCESSES
@@ -36,24 +41,34 @@ export function process(methodName, option) {
     const imageData = copyImageData(temp)
     let processFunc = null
     // use different process function according to methodName.
-    switch (methodName) {
-      case PROCESSES.GRAYSCALE:
-        processFunc = grayscale
-        //processedImage = grayscale(imageData, option)
-        break;
-      case PROCESSES.SCALE:
-        processFunc = scale
-        //processedImage = scale(imageData, option)
-        break;
-      default:
-      // do nothing.
-        break;
-    }
-    const imageProcess = new Promise(function(resolve, reject) {
-      const image = processFunc(imageData, option)
-      resolve(image)
+    worker.postMessage({
+      opName: methodName,
+      imageData: imageData,
+      option: option,
     })
-    imageProcess.then(image => dispatch(receiveProcessedImage(image)))
+
+    worker.onmessage = (({ data: { width, height, data } }) => {
+      const resultImage = copyImageData(null, width, height, data)
+      dispatch(receiveProcessedImage(resultImage))
+    })
+    // switch (methodName) {
+    //   case PROCESSES.GRAYSCALE:
+    //     processFunc = grayscale
+    //     //processedImage = grayscale(imageData, option)
+    //     break;
+    //   case PROCESSES.SCALE:
+    //     processFunc = scale
+    //     //processedImage = scale(imageData, option)
+    //     break;
+    //   default:
+    //   // do nothing.
+    //     break;
+    // }
+    // const imageProcess = new Promise(function(resolve, reject) {
+    //   const image = processFunc(imageData, option)
+    //   resolve(image)
+    // })
+    // imageProcess.then(image => dispatch(receiveProcessedImage(image)))
 
   }
 }

@@ -23,7 +23,7 @@ function min(r, g, b) {
 function max(r, g, b) {
   return (Math.max(r, g, b))
 }
-export function grayscale(imageData, { type = supportTypes.AVERAGE } = {}) {
+export default function grayscale(imageData, { type = supportTypes.AVERAGE } = {}) {
   let data = imageData.data
   let grayFunction = average
   switch (type) {
@@ -46,5 +46,9 @@ export function grayscale(imageData, { type = supportTypes.AVERAGE } = {}) {
     data[i + 1] = val; // green
     data[i + 2] = val; // blue
   }
-   return imageData
+   return {
+     data: data,
+     width: imageData.width,
+     height: imageData.height,
+   }
 }
