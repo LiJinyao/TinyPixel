@@ -1,7 +1,8 @@
 import React, { Component, PropTypes }   from 'react'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
-import { INTERPOLATION }                  from '../../actions/imageProcess/scale'
-import Slider from 'material-ui/Slider';
+import { INTERPOLATION }                 from '../../actions/imageProcess/scale'
+import Slider                            from 'material-ui/Slider';
+
 const typeName = new Map([
   [INTERPOLATION.NEAREST_NEIGHBOR, '临近插值'],
   [INTERPOLATION.BILINEAR, '双线性插值'],
@@ -48,7 +49,7 @@ class Scale extends Component {
           {radios}
         </RadioButtonGroup>
         <span>{`缩放倍数：${this.state.ratio.toFixed(2)}`}</span>
-        <Slider defaultValue={0.5} onChange={this.handleRatioChange.bind(this)}/>
+        <Slider defaultValue={0.5} onChange={this.handleRatioChange.bind(this)} disabled={this.props.disabled}/>
       </div>
     )
   }

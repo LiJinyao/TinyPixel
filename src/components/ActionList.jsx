@@ -8,6 +8,7 @@ import DropDownMenu                    from 'material-ui/DropDownMenu';
 import MenuItem                        from 'material-ui/MenuItem';
 import { PROCESSES, process }          from '../actions/'
 import RaisedButton                    from 'material-ui/RaisedButton'
+import CircularProgress from 'material-ui/CircularProgress'
 import OptionPanel from './Actions/'
 // map process name to a humanfridendly name
 const processName = new Map([
@@ -50,27 +51,33 @@ class ActionList extends Component {
   }
   render() {
     const { hasImage, processing } = this.props
-    console.log("processing: " + processing);
+    const disable = (!hasImage || processing)
     return (
       <Paper
       className="action-list-panel"
       zDepth={2}
       >
-      <p>选择操作</p>
+      <div>
+        <p className="choose-action">选择操作</p>
+        {processing &&
+          <CircularProgress size={0.5} style={{verticalAlign: 'middle'}}/>
+        }
+      </div>
+
       <DropDownMenu
       style={{width: 182}}
       value={this.state.actionValue}
       onChange={this.handleActionChange.bind(this)}
       autoWidth
-      disabled={!hasImage}
+      disabled={disable}
       >
       {items}
       </DropDownMenu>
-      <RaisedButton disabled={!hasImage} secondary label="应用" onClick={this.handleApplyAction.bind(this)}/>
+      <RaisedButton disabled={disable} secondary label="应用" onClick={this.handleApplyAction.bind(this)}/>
       <OptionPanel
       type={pros[this.state.actionValue - 1]}
       handleOptionChange={this.handleOptionChange.bind(this)}
-      disabled={(!hasImage || processing)}
+      disabled={disable}
       />
       </Paper>
     )
