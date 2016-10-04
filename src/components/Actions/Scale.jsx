@@ -43,7 +43,6 @@ class Scale extends Component {
     return (
       <div>
         <RadioButtonGroup
-        style={{marginTop: 16}}
         name="shipSpeed"
         defaultSelected={this.state.type}
         onChange={this.handleTypeChange.bind(this)}>

@@ -3,7 +3,7 @@ var webpack           = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  devtool: 'eval',
+  devtool: 'cheap-module-eval-source-map',
   entry: [
     'babel-polyfill',
     'webpack-dev-server/client?http://localhost:2333', // WebpackDevServer host and port
@@ -25,7 +25,7 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.jsx?$/,
-      loaders: ['jsx?harmony', 'babel'],
+      loaders: ['babel'],
       include: path.join(__dirname, 'src')
     },
     {

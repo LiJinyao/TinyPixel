@@ -14,6 +14,8 @@ import OptionPanel from './Actions/'
 const processName = new Map([
   [PROCESSES.GRAYSCALE, '灰度'],
   [PROCESSES.SCALE, '缩放'],
+  [PROCESSES.ROTATE, '旋转'],
+
 ])
 
 // supported process name list.
