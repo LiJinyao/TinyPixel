@@ -28,7 +28,6 @@ export default function rotate(imageData, { angle = 0 } = {}) {
   console.log('(0, 0)到原图的index：' + oCoor(cX, cY));
   console.log(data[oCoor(cX, cY)])
   const dData = new Uint8ClampedArray(4 * dWidth * dHeight)
-  dData.fill(123)
   // 目标图像的坐标
   const dPosition = getPixelPosition(dWidth, dHeight)
   /**
@@ -47,11 +46,10 @@ export default function rotate(imageData, { angle = 0 } = {}) {
       dData[dIndex + 2] = data[index + 2] // blue
       dData[dIndex + 3] = data[index + 3] // alpha
     }
-
   }
-    return {
-      data: dData,
-      width: dWidth,
-      height: dHeight,
-    }
+  return {
+    data: dData,
+    width: dWidth,
+    height: dHeight,
+  }
 }

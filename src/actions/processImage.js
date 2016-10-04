@@ -3,7 +3,7 @@ import { receiveProcessedImage } from './getImage'
 import { grayscale }             from './imageProcess/grayscale'
 import { scale }                 from './imageProcess/scale'
 import { PROCESSES }             from './imageProcess/processName'
-import ProcessWorker             from 'worker-loader!./imageProcess/worker'
+import ProcessWorker             from 'worker-loader?inline!./imageProcess/worker'
 
 export const PROCESS_START = 'PROCESS_START'
 export function processStart() {
@@ -51,24 +51,5 @@ export function process(methodName, option) {
       const resultImage = copyImageData(null, width, height, data)
       dispatch(receiveProcessedImage(resultImage))
     })
-    // switch (methodName) {
-    //   case PROCESSES.GRAYSCALE:
-    //     processFunc = grayscale
-    //     //processedImage = grayscale(imageData, option)
-    //     break;
-    //   case PROCESSES.SCALE:
-    //     processFunc = scale
-    //     //processedImage = scale(imageData, option)
-    //     break;
-    //   default:
-    //   // do nothing.
-    //     break;
-    // }
-    // const imageProcess = new Promise(function(resolve, reject) {
-    //   const image = processFunc(imageData, option)
-    //   resolve(image)
-    // })
-    // imageProcess.then(image => dispatch(receiveProcessedImage(image)))
-
   }
 }

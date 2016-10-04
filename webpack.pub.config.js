@@ -10,6 +10,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js?v[hash:10]',
+    chunkFilename: '[id].chunk.js?v[hash:10]',
     publicpath: '/'
   },
   resolve: {
@@ -33,7 +34,7 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.jsx?$/,
-      loaders: ['jsx?harmony', 'babel'],
+      loaders: ['babel'],
       include: path.join(__dirname, 'src')
     },
     {
