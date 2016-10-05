@@ -1,0 +1,40 @@
+convertToGrayStart	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess.js	/^export function convertToGrayStart() {$/;"	function	line:5
+convertToGrayDone	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess.js	/^export function convertToGrayDone() {$/;"	function	line:12
+convertToGray	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess.js	/^function convertToGray() {$/;"	function	line:18
+toGray	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess/gray.js	/^export function toGray(imageData) {$/;"	function	line:1
+switch	/Users/lijinyao/Projects/TinyPixel/src/reducers/index.js	/^  switch (action.type) {$/;"	function	line:11
+switch	/Users/lijinyao/Projects/TinyPixel/src/reducers/index.js	/^  switch (action.type) {$/;"	function	line:25
+image	/Users/lijinyao/Projects/TinyPixel/src/reducers/index.js	/^function image(state = {$/;"	function	line:22
+receiveOriginImage	/Users/lijinyao/Projects/TinyPixel/src/actions/image.js	/^export function receiveOriginImage(image) {$/;"	function	line:4
+fileToImageData	/Users/lijinyao/Projects/TinyPixel/src/actions/image.js	/^export function fileToImageData(file) {$/;"	function	line:10
+receiveProcessedImage	/Users/lijinyao/Projects/TinyPixel/src/actions/image.js	/^export function receiveProcessedImage(image) {$/;"	function	line:31
+copyImageData	/Users/lijinyao/Projects/TinyPixel/src/actions/image.js	/^function copyImageData(ctx, src)$/;"	function	line:41
+copyImageData	/Users/lijinyao/Projects/TinyPixel/src/actions/image.js	/^function copyImageData(ctx, src)$/;"	function	line:41
+receiveFile	/Users/lijinyao/Projects/TinyPixel/src/actions/openFile.js	/^export function receiveFile(file) {$/;"	function	line:3
+setImageFile	/Users/lijinyao/Projects/TinyPixel/src/actions/openFile.js	/^export function setImageFile(file) {$/;"	function	line:9
+grayscale	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess/grayscale.js	/^export function grayscale(imageData, option) {$/;"	function	line:1
+rotate	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess/rotation.js	/^export default function rotate(imageData, { angle = 0 } = {}) {$/;"	function	line:6
+from.NEAREST_NEIGHBOR	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess/scale.js	/^export const INTERPOLATION = {$/;"	property	line:7
+from.BILINEAR	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess/scale.js	/^  NEAREST_NEIGHBOR: 'NEAREST_NEIGHBOR', \/\/ 最临近插值$/;"	property	line:8
+from.BICUBIC	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess/scale.js	/^  BILINEAR: 'BILINEAR', \/\/ 双线性插值$/;"	property	line:9
+nearestNeighbor	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess/scale.js	/^function nearestNeighbor(dPosition, oCoor, width, height, dWidth, dHeight, data, dData) {$/;"	function	line:13
+bilinear	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess/scale.js	/^function bilinear(dPosition, oCoor, width, height, dWidth, dHeight, data, dData) {$/;"	function	line:32
+bicubic	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess/scale.js	/^function bicubic(dPosition, oCoor, width, height, dWidth, dHeight, data, dData) {$/;"	function	line:58
+S	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess/scale.js	/^  function S(x) {$/;"	function	line:60
+bilinear.bicubic.S	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess/scale.js	/^  function S(x) {$/;"	function	line:60
+scale	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess/scale.js	/^export default function scale(imageData, { ratio = 1, type = INTERPOLATION.NEAREST_NEIGHBOR } = {}) {$/;"	function	line:97
+bilinear.bicubic	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess/scale.js	/^function bicubic(dPosition, oCoor, width, height, dWidth, dHeight, data, dData) {$/;"	function	line:58
+function.bilinear	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess/scale.js	/^function bilinear(dPosition, oCoor, width, height, dWidth, dHeight, data, dData) {$/;"	function	line:32
+switch	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess/scale.js	/^  switch (type) {$/;"	function	line:113
+rotate	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess/rotate.js	/^export default function rotate(imageData, { angle = 0 } = {}) {$/;"	function	line:6
+TinyPixel	/Users/lijinyao/Projects/TinyPixel/README.md	/^# TinyPixel$/;"	function	line:1
+功能	/Users/lijinyao/Projects/TinyPixel/README.md	/^## 功能$/;"	function	line:28
+JavaScript semicolon-less style	/Users/lijinyao/Projects/TinyPixel/README.md	/^# JavaScript semicolon-less style$/;"	function	line:36
+processStart	/Users/lijinyao/Projects/TinyPixel/src/actions/processImage.js	/^export function processStart() {$/;"	function	line:9
+copyImageData	/Users/lijinyao/Projects/TinyPixel/src/actions/processImage.js	/^export function copyImageData(src, width = src.width, height = src.height, data = src.data) {$/;"	function	line:17
+process	/Users/lijinyao/Projects/TinyPixel/src/actions/processImage.js	/^export function process(methodName, option) {$/;"	function	line:30
+getCoordinate	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess/util.js	/^export function getCoordinate(width) {$/;"	function	line:6
+getPixelPosition	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess/util.js	/^export function getPixelPosition(width, height) {$/;"	function	line:11
+matrixMultiplication	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess/util.js	/^export function matrixMultiplication(a, b) {$/;"	function	line:23
+euclideanMetric	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess/util.js	/^function euclideanMetric(p, q) {$/;"	function	line:38
+dM	/Users/lijinyao/Projects/TinyPixel/src/actions/imageProcess/util.js	/^function dM(image, start, end) {$/;"	function	line:66
