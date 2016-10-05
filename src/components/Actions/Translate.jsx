@@ -21,6 +21,7 @@ class Translate extends Component {
         xOffset: 0,
         yOffset: 0,
       })
+      this.props.handleOptionChange(this.state)
     }
   }
   handleXOffsetChange(event, val) {

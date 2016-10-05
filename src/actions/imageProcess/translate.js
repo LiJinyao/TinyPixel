@@ -25,7 +25,7 @@ export default function translate(imageData, {xOffset = 0, yOffset = 0 } = {}) {
   for(const [dX, dY, dIndex] of dPosition()) {
     const v = dX - xOffset
     const w = dY - yOffset
-    if (v < width && w < height && v > 0 && w > 0) {
+    if (v < width && w < height && v >= 0 && w >= 0) {
       const index = oCoor(v, w)
       dData[dIndex] = data[index]         // red
       dData[dIndex + 1] = data[index + 1] // green

@@ -67,7 +67,7 @@ export default function rotate(imageData, { angle = 0 } = {}) {
     const w = Math.round(-(dX) * sinθ + (dY) * cosθ) + cY // w是目标图像y坐标变换到原图的y坐标的值
     // 按图像中心旋转，要做坐标变换
     // 只在对应区域进行变换
-    if (v < width && w < height && v > 0 && w > 0) {
+    if (v < width && w < height && v >= 0 && w >= 0) {
       const index = oCoor(v, w)
       dData[dIndex] = data[index]         // red
       dData[dIndex + 1] = data[index + 1] // green
