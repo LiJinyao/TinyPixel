@@ -8,7 +8,7 @@ class ActionListContainer extends Component {
     }
     render() {
       const { dispatch, image, processing } = this.props
-      return (<ActionList dispatch={dispatch} hasImage={image? true: false} processing={processing}/>)
+      return (<ActionList dispatch={dispatch} hasImage={image? true: false} processing={processing} image={image}/>)
     }
 }
 ActionListContainer.propTypes = {

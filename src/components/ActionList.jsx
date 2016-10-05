@@ -15,7 +15,7 @@ const processName = new Map([
   [PROCESSES.GRAYSCALE, '灰度'],
   [PROCESSES.SCALE, '缩放'],
   [PROCESSES.ROTATE, '旋转'],
-
+  [PROCESSES.TRANSLATE, '平移'],
 ])
 
 // supported process name list.
@@ -42,8 +42,6 @@ class ActionList extends Component {
       // reset option.
       option: {},
     })
-    // if you want to emmit action immediately after option chagne, call this.handleApplyAction() here.
-    // this.handleApplyAction()
   }
   handleApplyAction() {
     this.props.dispatch(process(pros[this.state.actionValue - 1], this.state.option))
@@ -52,7 +50,7 @@ class ActionList extends Component {
     this.setState({ option: Object.assign(this.state.option, opt) })
   }
   render() {
-    const { hasImage, processing } = this.props
+    const { hasImage, processing, image } = this.props
     const disable = (!hasImage || processing)
     return (
       <Paper
@@ -86,6 +84,7 @@ class ActionList extends Component {
       type={pros[this.state.actionValue - 1]}
       handleOptionChange={this.handleOptionChange.bind(this)}
       disabled={disable}
+      image={image}
       />
       </Paper>
     )

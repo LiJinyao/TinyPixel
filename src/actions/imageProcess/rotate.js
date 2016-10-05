@@ -53,11 +53,6 @@ export default function rotate(imageData, { angle = 0 } = {}) {
   // 旋转中心偏移
   const cX = Math.round( -0.5 * dWidth * cosθ - 0.5 * dHeight * sinθ + 0.5 * width)
   const cY = Math.round(  0.5 * dWidth * sinθ - 0.5 * dHeight * cosθ + 0.5 * height)
-  console.log('cx: ' + cX);
-  console.log('cy: ' + cY);
-  console.log('data.length' + data.length);
-  console.log('(0, 0)到原图的index：' + oCoor(cX, cY));
-  console.log(data[oCoor(cX, cY)])
   const dData = new Uint8ClampedArray(4 * dWidth * dHeight)
   // 目标图像的坐标
   const dPosition = getPixelPosition(dWidth, dHeight)

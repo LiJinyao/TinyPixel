@@ -3,9 +3,10 @@
  */
 import 'babel-polyfill';
 
-import scale from './scale'
-import grayscale from './grayscale'
-import rotate from './rotate'
+import scale         from './scale'
+import grayscale     from './grayscale'
+import rotate        from './rotate'
+import translate     from './translate'
 import { PROCESSES } from './processName'
 
 const { GRAYSCALE, SCALE } = PROCESSES
@@ -13,6 +14,7 @@ const op = {
   GRAYSCALE: grayscale,
   SCALE: scale,
   ROTATE: rotate,
+  TRANSLATE: translate,
 }
 onmessage = ({ data: { opName, imageData, option } }) => {
   const result = op[opName](imageData, option)

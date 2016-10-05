@@ -2,6 +2,7 @@ import React , { PropTypes }  from 'react'
 import { PROCESSES, process } from '../../actions/'
 import GrayScale              from './GrayScale'
 import Scale                  from './Scale'
+import Translate from './Translate'
 import Rotate from './Rotate'
 /**
  * show action options according to action name.
@@ -20,7 +21,9 @@ const OptionPanel = (props) => {
     case PROCESSES.ROTATE:
       OptionComp = Rotate
       break;
-      // return (<Rotate {...props}/>)
+    case PROCESSES.TRANSLATE:
+      OptionComp = Translate
+      break;
     default:
       return (<h1>no option</h1>)
   }
