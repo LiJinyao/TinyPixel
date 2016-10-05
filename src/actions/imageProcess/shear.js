@@ -10,25 +10,29 @@ const DIRC = {
 }
 import { getPixelPosition, getCoordinate } from './util'
 
-function horizontal(dX, dY, tanθ) {
+
+function horizontal(dX, dY, tanθ, angleOffset) {
   /**
-   * 垂直偏移
+   * 水平偏移
    * v = x - tanθ * y
    * w = y
    */
-    const v = Math.round(dX - tanθ * dY)
+   // 负角时需要坐标补偿 + angleOffset
+    const v = Math.round(dX - tanθ * dY - angleOffset)
+    // 当偏转角为负时需要坐标补偿
     const w = dY
     return { v, w }
 }
 
-function vertical(dX, dY, tanθ) {
+
+function vertical(dX, dY, tanθ, angleOffset) {
   /**
-   * 水平偏移
+   * 垂直偏移
    * v = x
    * w = y - tanθ * x
    */
     const v = dX
-    const w = Math.round(dY - tanθ * dX)
+    const w = Math.round(dY - tanθ * dX - angleOffset)
     return { v, w }
 }
 
@@ -36,8 +40,7 @@ export default function shear(imageData, {direction = DIRC.HORIZONTAL, offset = 
   if(offset === 0) {
     return imageData
   }
-  const θ = offset * Math.PI / 180
-  const tanθ = Math.tan(θ)
+  const tanθ = Math.tan(offset * Math.PI / 180)
 
   const { width, height, data } = imageData
   // 原始图像的data下标
@@ -46,31 +49,38 @@ export default function shear(imageData, {direction = DIRC.HORIZONTAL, offset = 
   const oPosition = getPixelPosition(width, height)
   // 目标图像的宽高
   // 水平方向变换是宽度改变，多出来的宽度为tanθ * height
-  const dWidth = direction === DIRC.HORIZONTAL ? Math.round(width + tanθ * height) : width
+  const dWidth = direction === DIRC.HORIZONTAL ? Math.round(width + Math.abs(tanθ * height)) : width
   // 垂直方向变换是高度改变，多出来的高度为tanθ * width
-  const dHeight = direction === DIRC.VERTICAL ? Math.round(height + tanθ * width) : height
+  const dHeight = direction === DIRC.VERTICAL ? Math.round(height + Math.abs(tanθ * width)) : height
   const dData = new Uint8ClampedArray(4 * dWidth * dHeight)
   // 目标图像的坐标
   const dPosition = getPixelPosition(dWidth, dHeight)
   /**
    * 反向映射
-   * 垂直偏移
+   * 水平偏移
    * v = x - tanθ * y
    * w = y
-   * 水平偏移
+   * 垂直偏移
    * v = x
    * w = y - tanθ * x
    */
   let transtionFunc = null
+  let angleOffset = 0
   switch (direction) {
     case DIRC.HORIZONTAL:
       transtionFunc = horizontal
+      if (tanθ < 0) {
+        angleOffset = Math.abs(tanθ * height)
+      }
       break;
     default:
+      if (tanθ < 0) {
+        angleOffset = Math.abs(tanθ * width)
+      }
       transtionFunc = vertical
   }
   for(const [dX, dY, dIndex] of dPosition()) {
-    const { v, w } = transtionFunc(dX, dY, tanθ)
+    const { v, w } = transtionFunc(dX, dY, tanθ, angleOffset)
     if (v < width && w < height && v >= 0 && w >= 0) {
       const index = oCoor(v, w)
       dData[dIndex] = data[index]         // red
