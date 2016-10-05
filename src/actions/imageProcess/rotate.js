@@ -62,6 +62,7 @@ export default function rotate(imageData, { angle = 0 } = {}) {
   // 目标图像的坐标
   const dPosition = getPixelPosition(dWidth, dHeight)
   /**
+   * 反向映射
    * v = xcosθ + ysinθ
    * w = -xsinθ + ycosθ
    */
