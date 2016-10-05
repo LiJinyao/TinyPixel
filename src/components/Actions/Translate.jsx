@@ -10,12 +10,18 @@ class Translate extends Component {
       yOffset: 0,
       target: 'ORIGIN',
     }
-    this.width = props.image.width
-    this.height = props.image.height
   }
   componentDidMount() {
     // init option.
     this.props.handleOptionChange(this.state)
+  }
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.image !== this.props.image) {
+      this.setState({
+        xOffset: 0,
+        yOffset: 0,
+      })
+    }
   }
   handleXOffsetChange(event, val) {
     const xOffset = Math.round(val)
@@ -29,13 +35,14 @@ class Translate extends Component {
   }
 
   render() {
+    const { width, height } = this.props.image
     return (
       <div>
         <span>{`x轴偏移：${this.state.xOffset}px`}</span>
         <Slider
         defaultValue={0}
-        min={0}
-        max={this.width}
+        min={-width}
+        max={width}
         step={1}
         value={this.state.xOffset}
         onChange={this.handleXOffsetChange.bind(this)}
@@ -43,8 +50,8 @@ class Translate extends Component {
         <span>{`y轴偏移：${this.state.yOffset}px`}</span>
         <Slider
         defaultValue={0}
-        min={0}
-        max={this.height}
+        min={-height}
+        max={height}
         step={1}
         value={this.state.yOffset}
         onChange={this.handleYOffsetChange.bind(this)}
