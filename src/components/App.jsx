@@ -62,7 +62,7 @@ class App extends Component {
         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
       >
         <MenuItem value="OPEN" primaryText="打开" leftIcon={<OpenFileIcon/>}/>
-        <MenuItem value="SAVE" primaryText="保存" leftIcon={<Download/>} disabled={this.props.processed}/>
+        <MenuItem value="SAVE" primaryText="保存" leftIcon={<Download/>} disabled={!this.props.processed}/>
       </IconMenu>
 }
         />
