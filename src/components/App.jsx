@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
-import AppBar               from 'material-ui/AppBar'
-import IconButton from 'material-ui/IconButton'
-import IconMenu from 'material-ui/IconMenu'
-import MenuItem from 'material-ui/MenuItem'
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
-import FlatButton           from 'material-ui/FlatButton'
-import OpenFileIcon         from 'material-ui/svg-icons/file/file-upload'
-import Download from 'material-ui/svg-icons/file/file-download'
-import { setImageFile, saveImage }     from '../actions'
-import MainViewer           from '../containers/MainViewer'
-import ActionList           from '../containers/ActionList'
+import React, { Component }        from 'react'
+import AppBar                      from 'material-ui/AppBar'
+import IconButton                  from 'material-ui/IconButton'
+import IconMenu                    from 'material-ui/IconMenu'
+import MenuItem                    from 'material-ui/MenuItem'
+import MoreVertIcon                from 'material-ui/svg-icons/navigation/more-vert'
+import FlatButton                  from 'material-ui/FlatButton'
+import OpenFileIcon                from 'material-ui/svg-icons/file/file-upload'
+import Download                    from 'material-ui/svg-icons/file/file-download'
+import { setImageFile, saveImage, receiveProcessedImage } from '../actions'
+import MainViewer                  from '../containers/MainViewer'
+import ActionList                  from '../containers/ActionList'
 class App extends Component {
   onFileChoose(event) {
     const dispatch = this.props.dispatch;
@@ -38,6 +38,9 @@ class App extends Component {
       case 'SAVE':
         this.onFileSvae()
         break;
+      case 'RESET':
+        this.props.dispatch(receiveProcessedImage(null))
+        break;
       default:
     }
   }
@@ -63,6 +66,7 @@ class App extends Component {
       >
         <MenuItem value="OPEN" primaryText="打开" leftIcon={<OpenFileIcon/>}/>
         <MenuItem value="SAVE" primaryText="保存" leftIcon={<Download/>} disabled={!this.props.processed}/>
+        <MenuItem value="RESET" primaryText="重置" leftIcon={<Download/>} disabled={!this.props.processed}/>
       </IconMenu>
 }
         />

@@ -119,4 +119,3 @@ function dM(image, start, end) {
   // return nothing.
   return null
 }
-console.log(dM(dMTestImage, dMTestStart, dMTestEnd))
