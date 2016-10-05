@@ -4,6 +4,7 @@ import { INTERPOLATION }                 from '../../actions/imageProcess/scale'
 import Slider                            from 'material-ui/Slider';
 
 const typeName = new Map([
+  [INTERPOLATION.NONE, '不插值'],
   [INTERPOLATION.NEAREST_NEIGHBOR, '最临近插值'],
   [INTERPOLATION.BILINEAR, '双线性插值'],
   [INTERPOLATION.BICUBIC, '双三次插值'],

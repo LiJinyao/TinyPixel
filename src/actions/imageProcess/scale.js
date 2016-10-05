@@ -5,9 +5,21 @@
 import { getPixelPosition, getCoordinate, matrixMultiplication } from './util'
 
 export const INTERPOLATION = {
+  NONE: 'NONE', // 不插值
   NEAREST_NEIGHBOR: 'NEAREST_NEIGHBOR', // 最临近插值
   BILINEAR: 'BILINEAR', // 双线性插值
   BICUBIC: 'BICUBIC', // 双三次插值
+}
+
+// 不插值，空像素为255 255 255 255
+function noInterpolation(oPosition, dCoor, width, height, dWidth, dHeight, data, dData) {
+  for(const [oX, oY, oIndex] of oPosition()) {
+    const dIndex = dCoor(Math.round(oX * (dWidth / width)), Math.round(oY * (dHeight / height)))
+    dData[dIndex] = data[oIndex]         // red
+    dData[dIndex + 1] = data[oIndex + 1] // green
+    dData[dIndex + 2] = data[oIndex + 2] // blue
+    dData[dIndex + 3] = data[oIndex + 3] // alpha
+  }
 }
 // 最临近插值
 function nearestNeighbor(dPosition, oCoor, width, height, dWidth, dHeight, data, dData) {
@@ -19,6 +31,7 @@ function nearestNeighbor(dPosition, oCoor, width, height, dWidth, dHeight, data,
       dData[dIndex + 3] = data[index + 3] // alpha
     }
 }
+
 // 双线性插值
 // i是整数部分，u是小数部分
 /*
@@ -94,6 +107,7 @@ function bicubic(dPosition, oCoor, width, height, dWidth, dHeight, data, dData) 
     }
   }
 }
+
 export default function scale(imageData, { ratio = 1, type = INTERPOLATION.NEAREST_NEIGHBOR } = {}) {
   if (ratio === 1) {
     return imageData
@@ -111,6 +125,10 @@ export default function scale(imageData, { ratio = 1, type = INTERPOLATION.NEARE
   const dPosition = getPixelPosition(dWidth, dHeight)
   // 遍历目标图像的坐标，找出对应原图像的像素坐标
   switch (type) {
+    case INTERPOLATION.NONE:
+      const dCoor = getCoordinate(dWidth)
+      noInterpolation(oPosition, dCoor, width, height, dWidth, dHeight, data, dData)
+      break;
     case INTERPOLATION.BILINEAR:
       bilinear(dPosition, oCoor, width, height, dWidth, dHeight, data, dData)
       break;
