@@ -6,6 +6,7 @@ import MenuItem                    from 'material-ui/MenuItem'
 import MoreVertIcon                from 'material-ui/svg-icons/navigation/more-vert'
 import FlatButton                  from 'material-ui/FlatButton'
 import OpenFileIcon                from 'material-ui/svg-icons/file/file-upload'
+import ResetIcon from 'material-ui/svg-icons/action/restore'
 import Download                    from 'material-ui/svg-icons/file/file-download'
 import { setImageFile, saveImage, receiveProcessedImage } from '../actions'
 import MainViewer                  from '../containers/MainViewer'
@@ -66,7 +67,7 @@ class App extends Component {
       >
         <MenuItem value="OPEN" primaryText="打开" leftIcon={<OpenFileIcon/>}/>
         <MenuItem value="SAVE" primaryText="保存" leftIcon={<Download/>} disabled={!this.props.processed}/>
-        <MenuItem value="RESET" primaryText="重置" leftIcon={<Download/>} disabled={!this.props.processed}/>
+        <MenuItem value="RESET" primaryText="重置" leftIcon={<ResetIcon/>} disabled={!this.props.processed}/>
       </IconMenu>
 }
         />

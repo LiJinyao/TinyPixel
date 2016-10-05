@@ -8,8 +8,8 @@ import DropDownMenu                    from 'material-ui/DropDownMenu';
 import MenuItem                        from 'material-ui/MenuItem';
 import { PROCESSES, process }          from '../actions/'
 import RaisedButton                    from 'material-ui/RaisedButton'
-import CircularProgress from 'material-ui/CircularProgress'
-import OptionPanel from './Actions/'
+import CircularProgress                from 'material-ui/CircularProgress'
+import OptionPanel                     from './Actions/'
 // map process name to a humanfridendly name
 const processName = new Map([
   [PROCESSES.GRAYSCALE, '灰度化'],
