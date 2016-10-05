@@ -29,18 +29,20 @@ class Scale extends Component {
     })
   }
   handleRatioChange(event, val) {
-    this.setState({ ratio: val*3 }, ()=> {
+    this.setState({ ratio: val }, ()=> {
       this.props.handleOptionChange(this.state)
     })
   }
   render() {
-    const radios = Object.keys(INTERPOLATION).map((type, i) => (<RadioButton
+    const radios = Object.keys(INTERPOLATION).map((type, i) => (
+      <RadioButton
       key={i}
       value={type}
       label={typeName.get(type)}
       disabled={this.props.disabled}
       style={{marginBottom: 16}}
       />))
+
     return (
       <div>
         <RadioButtonGroup
@@ -50,7 +52,12 @@ class Scale extends Component {
           {radios}
         </RadioButtonGroup>
         <span>{`缩放倍数：${this.state.ratio.toFixed(2)}`}</span>
-        <Slider defaultValue={0.5} onChange={this.handleRatioChange.bind(this)} disabled={this.props.disabled}/>
+        <Slider
+        max={3}
+        min={0}
+        defaultValue={0.5}
+        onChange={this.handleRatioChange.bind(this)}
+        disabled={this.props.disabled}/>
       </div>
     )
   }

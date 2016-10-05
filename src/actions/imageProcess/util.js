@@ -116,6 +116,6 @@ function dM(image, start, end) {
     }
     dis++
   }
-  // return nothing.
+  // return null if can't find
   return null
 }
