@@ -1,6 +1,6 @@
 /**
  * image translation
- * 为了显示平移效果，目标图像大笑与原图像大小一致。超出的部分将被截断。
+ * 为了显示平移效果，目标图像大小与原图像大小一致。超出的部分将被截断。
  */
 import { getPixelPosition, getCoordinate } from './util'
 export default function translate(imageData, {xOffset = 0, yOffset = 0 } = {}) {
