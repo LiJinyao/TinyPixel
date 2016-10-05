@@ -2,6 +2,7 @@ import React , { PropTypes }  from 'react'
 import { PROCESSES, process } from '../../actions/'
 import GrayScale              from './GrayScale'
 import Scale                  from './Scale'
+import Shear from './Shear'
 import Translate from './Translate'
 import Rotate from './Rotate'
 /**
@@ -23,6 +24,9 @@ const OptionPanel = (props) => {
       break;
     case PROCESSES.TRANSLATE:
       OptionComp = Translate
+      break;
+    case PROCESSES.SHEAR:
+      OptionComp = Shear
       break;
     default:
       return (<h1>no option</h1>)

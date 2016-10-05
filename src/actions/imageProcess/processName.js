@@ -6,4 +6,5 @@ export const PROCESSES = new Object({
   SCALE: 'SCALE',
   ROTATE: 'ROTATE',
   TRANSLATE: 'TRANSLATE',
+  SHEAR: 'SHEAR',
 })

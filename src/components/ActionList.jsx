@@ -16,6 +16,7 @@ const processName = new Map([
   [PROCESSES.SCALE, '缩放'],
   [PROCESSES.ROTATE, '旋转'],
   [PROCESSES.TRANSLATE, '平移'],
+  [PROCESSES.SHEAR, '偏移变换'],
 ])
 
 // supported process name list.
