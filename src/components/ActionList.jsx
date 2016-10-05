@@ -12,7 +12,7 @@ import CircularProgress from 'material-ui/CircularProgress'
 import OptionPanel from './Actions/'
 // map process name to a humanfridendly name
 const processName = new Map([
-  [PROCESSES.GRAYSCALE, '灰度'],
+  [PROCESSES.GRAYSCALE, '灰度化'],
   [PROCESSES.SCALE, '缩放'],
   [PROCESSES.ROTATE, '旋转'],
   [PROCESSES.TRANSLATE, '平移'],

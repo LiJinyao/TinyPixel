@@ -1,14 +1,45 @@
 import React, { Component } from 'react'
 import AppBar               from 'material-ui/AppBar'
+import IconButton from 'material-ui/IconButton'
+import IconMenu from 'material-ui/IconMenu'
+import MenuItem from 'material-ui/MenuItem'
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import FlatButton           from 'material-ui/FlatButton'
-import OpenFileIcon         from 'material-ui/svg-icons/action/open-in-browser'
-import { setImageFile }     from '../actions'
+import OpenFileIcon         from 'material-ui/svg-icons/file/file-upload'
+import Download from 'material-ui/svg-icons/file/file-download'
+import { setImageFile, saveImage }     from '../actions'
 import MainViewer           from '../containers/MainViewer'
 import ActionList           from '../containers/ActionList'
 class App extends Component {
   onFileChoose(event) {
     const dispatch = this.props.dispatch;
     dispatch(setImageFile(event.target.files[0]));
+  }
+  onFileSvae() {
+    const image = this.props.processedImage
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+    canvas.setAttribute('width', image.width)
+    canvas.setAttribute('height', image.height)
+    ctx.putImageData(image, 0, 0)
+    const a = document.createElement('a')
+    a.setAttribute('download', 'tinyPixel.png')
+    a.setAttribute('href', canvas.toDataURL('image/png'))
+    a.setAttribute('style', 'position: fixed; width: 0; height: 0; display: none;')
+    const link = document.body.appendChild(a)
+    link.click()
+    document.body.removeChild(link)
+  }
+  handleMenuChange(event, value) {
+    switch (value) {
+      case 'OPEN':
+        this.input.click()
+        break;
+      case 'SAVE':
+        this.onFileSvae()
+        break;
+      default:
+    }
   }
   render() {
     const style = {
@@ -21,20 +52,31 @@ class App extends Component {
         style={style}
         title="TinyPixel"
         showMenuIconButton={false}
-        iconElementRight={<FlatButton label="Open File" icon={<OpenFileIcon/>}>
-          <input
-          type="file"
-          className="appbar-fileinput"
-          id="appbar-fileinput"
-          accept="image/*"
-          onChange={this.onFileChoose.bind(this)}/>
-          </FlatButton>}
+        iconElementRight={
+        <IconMenu
+        onChange={this.handleMenuChange.bind(this)}
+        iconButtonElement={
+          <IconButton><MoreVertIcon /></IconButton>
+        }
+        targetOrigin={{horizontal: 'right', vertical: 'top'}}
+        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+      >
+        <MenuItem value="OPEN" primaryText="打开" leftIcon={<OpenFileIcon/>}/>
+        <MenuItem value="SAVE" primaryText="保存" leftIcon={<Download/>} disabled={this.props.processed}/>
+      </IconMenu>
+}
         />
         <MainViewer/>
         <ActionList/>
+        <input
+        type="file"
+        className="appbar-fileinput"
+        id="appbar-fileinput"
+        accept="image/*"
+        ref={(input) => this.input = input}
+        onChange={this.onFileChoose.bind(this)}/>
       </div>
     )
   }
 }
-
 export default App
