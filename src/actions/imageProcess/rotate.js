@@ -31,9 +31,6 @@ function bilinear(dPosition, oCoor, width, height, dWidth, dHeight, data, dData,
   }
 }
 
-
-
-
 export default function rotate(imageData, { angle = 0 } = {}) {
   const radians = angle * Math.PI / 180
   const sinθ = Math.sin(radians)

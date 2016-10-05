@@ -55,16 +55,16 @@ class Shear extends Component {
             />
           <RadioButton
             value={DIRC.VERTICAL}
-            label="竖直"
+            label="垂直"
             disabled={this.props.disabled}
             style={{marginBottom: 16}}
             />
         </RadioButtonGroup>
-        <span>{`偏移量：${this.state.offset}`}</span>
+        <span>{`偏移角：${this.state.offset}°`}</span>
         <Slider
         defaultValue={0}
-        min={0}
-        max={10}
+        min={-89}
+        max={89}
         step={1}
         value={this.state.offset}
         onChange={this.handleOffsetChange.bind(this)}
