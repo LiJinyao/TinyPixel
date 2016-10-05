@@ -2,6 +2,7 @@
  * 偏移变换
  * https://zh.wikipedia.org/wiki/仿射变换
  * offset是偏转方向与偏转轴的夹角。范围[-PI/2, PI/2]
+ * 由于图片的原点在左上角，所以当夹角为负角时需要补偿对应坐标。
  */
 // 两个方向
 const DIRC = {

@@ -1,5 +1,6 @@
 /**
  * run image process background.
+ * 图片坐标定义：原点位于左上角，宽为x轴，高为y轴
  */
 import 'babel-polyfill';
 
