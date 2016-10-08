@@ -11,15 +11,21 @@ class ActionListContainer extends Component {
     return (
       <ActionList
         dispatch={dispatch}
-        hasImage={image ? true : false}
+        hasImage={image !== null}
         processing={processing}
         image={image}
       />)
   }
 }
 ActionListContainer.propTypes = {
-    dispatch:   PropTypes.func.isRequired,
-    processing: PropTypes.bool.isRequired,
+  dispatch:   PropTypes.func.isRequired,
+  processing: PropTypes.bool.isRequired,
+  /*eslint-disable*/
+  image: PropTypes.shape({
+    width:        PropTypes.number.isRequired,
+    height:       PropTypes.number.isRequired,
+  }),
+/*eslint-disable*/
 }
 const mapStateToProps = state => ({
   image:      state.image.originImage,

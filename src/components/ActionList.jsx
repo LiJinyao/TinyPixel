@@ -104,6 +104,12 @@ ActionList.propTypes = {
   dispatch:   PropTypes.func.isRequired,
   hasImage:   PropTypes.bool.isRequired,
   processing: PropTypes.bool.isRequired,
+  /*eslint-disable*/
+  image:      PropTypes.shape({
+    width:  PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+  }),
+  /*eslint-enable*/
 }
 
 export default ActionList

@@ -100,12 +100,14 @@ function bicubic(dPosition, oCoor, width, height, dWidth, dHeight, data, dData) 
     // r, g, b, a
     for (let p = 0; p <= 3; ++p) {
       // B矩阵 4 X 4
+      /* eslint-disable */
       const B = [
         [data[oCoor(i - 1, j - 1) + p], data[oCoor(i - 1, j) + p], data[oCoor(i - 1, j + 1) + p], data[oCoor(i - 1, j + 2) + p]],
         [data[oCoor(i    , j - 1) + p], data[oCoor(i    , j) + p], data[oCoor(i    , j + 1) + p], data[oCoor(i    , j + 2) + p]],
         [data[oCoor(i + 1, j - 1) + p], data[oCoor(i + 1, j) + p], data[oCoor(i + 1, j + 1) + p], data[oCoor(i + 1, j + 2) + p]],
         [data[oCoor(i + 2, j - 1) + p], data[oCoor(i + 2, j) + p], data[oCoor(i + 2, j + 1) + p], data[oCoor(i + 2, j + 2) + p]],
       ]
+      /* eslint-disable */
       // ABC
       newData[dIndex + p] = matrixMultiplication(matrixMultiplication(A, B), C)[0][0]
     }

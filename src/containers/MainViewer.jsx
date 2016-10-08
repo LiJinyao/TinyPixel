@@ -1,15 +1,25 @@
-import React, { Component, PropTypes } from 'react'
-import { connect }                     from 'react-redux'
-import Board                           from '../components/MainViewer'
+import React, { PropTypes } from 'react'
+import { connect }          from 'react-redux'
+import Board                from '../components/MainViewer'
 
-class MainViewer extends Component {
-  render() {
-    const { processedImage, originImage } = this.props
-    if (processedImage || originImage) {
-      return (<Board imageData={processedImage || originImage} />)
-    }
-    return (<h1>Please open an image.</h1>)
+const MainViewer = (props) => {
+  const { processedImage, originImage } = props
+  if (processedImage || originImage) {
+    return (<Board imageData={processedImage || originImage} />)
   }
+  return (<h1>Please open an image.</h1>)
+}
+MainViewer.propTypes = {
+  /*eslint-disable*/
+  processedImage:  PropTypes.shape({
+    width:  PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+  }),
+  originImage: PropTypes.shape({
+    width:  PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+  }),
+  /*eslint-enable*/
 }
 const mapStateToProps = state => ({
   originImage:    state.image.originImage,

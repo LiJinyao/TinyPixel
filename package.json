@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node devserver.js",
     "build": "webpack --config webpack.pub.config.js",
-    "lint": "./node_modules/.bin/eslint -c ./.eslintrc ./src --ext .js,.jsx"
+    "lint": "./node_modules/.bin/eslint ./src --ext .js,.jsx -f table"
   },
   "repository": {
     "type": "git",
@@ -27,7 +27,8 @@
     "react-redux": "^4.4.5",
     "react-tap-event-plugin": "^1.0.0",
     "redux": "^3.6.0",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "react-hot-loader": "^3.0.0-beta.5",
   },
   "devDependencies": {
     "babel-core": "^6.14.0",
@@ -45,7 +46,6 @@
     "eslint-plugin-react": "^6.3.0",
     "html-webpack-plugin": "^2.22.0",
     "jsx-loader": "^0.13.2",
-    "react-hot-loader": "^3.0.0-beta.5",
     "style-loader": "^0.13.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^2.3.1",

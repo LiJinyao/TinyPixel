@@ -80,5 +80,11 @@ class Shear extends Component {
 Shear.propTypes = {
   handleOptionChange: PropTypes.func.isRequired,
   disabled:           PropTypes.bool.isRequired,
+    /*eslint-disable*/
+    image:      PropTypes.shape({
+      width:  PropTypes.number.isRequired,
+      height: PropTypes.number.isRequired,
+    }),
+    /*eslint-enable*/
 }
 export default Shear

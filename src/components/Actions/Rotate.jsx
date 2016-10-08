@@ -9,6 +9,7 @@ class Rotate extends Component {
       angle:  0,
       target: 'ORIGIN',
     }
+    this.onAngleChange = this.handleAngleChange.bind(this)
   }
   componentDidMount() {
     // init option.
@@ -24,7 +25,11 @@ class Rotate extends Component {
     return (
       <div>
         <span>{`旋转角度：${this.state.angle}`}</span>
-        <Slider defaultValue={0} onChange={this.handleAngleChange.bind(this)} disabled={this.props.disabled}/>
+        <Slider
+          defaultValue={0}
+          onChange={this.onAngleChange}
+          disabled={this.props.disabled}
+        />
       </div>
 
     )
@@ -32,5 +37,6 @@ class Rotate extends Component {
 }
 Rotate.propTypes = {
   handleOptionChange: PropTypes.func.isRequired,
+  disabled:           PropTypes.bool.isRequired,
 }
 export default Rotate

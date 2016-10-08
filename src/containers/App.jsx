@@ -8,25 +8,30 @@ class App extends Component {
     // if file not exists, ask user upload one.
   }
   render() {
-    const { file, dispatch, processing, originImage, processedImage } = this.props
+    const { dispatch, processing, processedImage } = this.props
     return (
       <Index
-        file={file}
         dispatch={dispatch}
         processing={processing}
-        originImage={originImage}
         processedImage={processedImage}
         processed={!(processedImage === null)}
       />)
   }
 }
 App.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  dispatch:       PropTypes.func.isRequired,
+  processing:     PropTypes.bool.isRequired,
+  /*eslint-disable*/
+  processedImage:  PropTypes.shape({
+    width:  PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+  }),
+  /*eslint-enable*/
 }
 const mapStateToProps = state => ({
-    file:           state.fileRepo.file,
-    processing:     state.image.processing,
-    originImage:    state.image.originImage,
-    processedImage: state.image.processedImage,
+  file:           state.fileRepo.file,
+  processing:     state.image.processing,
+  originImage:    state.image.originImage,
+  processedImage: state.image.processedImage,
 })
 export default connect(mapStateToProps)(App)

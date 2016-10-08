@@ -5,3 +5,4 @@ dist/
 .npm-debug.log
 .tags
 .tags1
+*.log

@@ -28,7 +28,7 @@ export function matrixMultiplication(a, b) {
     )
   )
 }
-
+/* eslint-disable */
 /**
  * 计算两点间的欧几里得距离
  * @param  {array} p,q 包含三个元素的数组，第一个是x坐标，第二个是y坐标，第三个是z坐标。
@@ -118,3 +118,4 @@ function dM(image, start, end) {
   // return null if can't find
   return null
 }
+/* eslint-disable */

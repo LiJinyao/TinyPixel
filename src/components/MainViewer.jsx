@@ -46,7 +46,7 @@ class ImageBoard extends Component {
     // draw in middle
     const imageData = this.props.imageData
     const zoomRatio = this.state.zoom / 100
-    const { width: iWidth, height: iHeight } = imageData
+    const { width: iWidth, height: iHeight } = this.props.imageData
     const dWidth = Math.floor(iWidth * zoomRatio)
     const dHeight = Math.floor(iHeight * zoomRatio)
     this.canvas.width = dWidth
@@ -83,5 +83,11 @@ class ImageBoard extends Component {
     )
   }
 }
+ImageBoard.propTypes = {
+  imageData: PropTypes.shape({
+    width:  PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+  }),
 
+}
 export default ImageBoard

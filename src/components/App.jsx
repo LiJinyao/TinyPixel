@@ -101,8 +101,13 @@ class App extends Component {
   }
 }
 App.propTypes = {
-  processed: PropTypes.bool.isRequired,
-  dispatch:  PropTypes.func.isRequired,
-
+  processed:      PropTypes.bool.isRequired,
+  dispatch:       PropTypes.func.isRequired,
+  /*eslint-disable*/
+  processedImage: PropTypes.shape({
+    width:        PropTypes.number.isRequired,
+    height:       PropTypes.number.isRequired,
+  }),
+/*eslint-disable*/
 }
 export default App

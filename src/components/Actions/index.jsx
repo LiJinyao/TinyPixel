@@ -42,6 +42,7 @@ const OptionPanel = (props) => {
  * no-unused-prop-types sometimes fails to detect props in functions on stateless components
  * https://github.com/yannickcr/eslint-plugin-react/issues/885
  */
+/* eslint-disable */
 OptionPanel.propTypes = {
   // type is one of PROCESSES.
   type:               PropTypes.string.isRequired,
@@ -49,5 +50,5 @@ OptionPanel.propTypes = {
   handleOptionChange: PropTypes.func.isRequired,
   disabled:           PropTypes.bool.isRequired,
 }
-
+/* eslint-enable */
 export default OptionPanel
