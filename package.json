@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node devserver.js",
-    "build": "webpack --config webpack.pub.config.js"
+    "build": "webpack --config webpack.pub.config.js",
+    "lint": "./node_modules/.bin/eslint -c ./.eslintrc ./src --ext .js,.jsx"
   },
   "repository": {
     "type": "git",

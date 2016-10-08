@@ -14,16 +14,16 @@ function fileRepo(state = {
       // TODO: save file in redcers.
       return Object.assign({}, state, { file: action.file })
     default:
-    return state
+      return state
   }
 }
 // image is an ImageData object.
 // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas
 
 function image(state = {
-  originImage: null,
+  originImage:    null,
   processedImage: null,
-  processing: false,
+  processing:     false,
 }, action) {
   switch (action.type) {
     case RECEIVE_ORIGIN_IMAGE:
@@ -42,6 +42,6 @@ const rootReducer = combineReducers({
   fileRepo,
   image,
   // processedImage,
-});
+})
 
 export default rootReducer

@@ -21,12 +21,12 @@ class App extends Component {
   }
 }
 App.propTypes = {
-    dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
 }
 const mapStateToProps = state => ({
-    file:       state.fileRepo.file,
-    processing: state.image.processing,
-    originImage: state.image.originImage,
+    file:           state.fileRepo.file,
+    processing:     state.image.processing,
+    originImage:    state.image.originImage,
     processedImage: state.image.processedImage,
 })
 export default connect(mapStateToProps)(App)
