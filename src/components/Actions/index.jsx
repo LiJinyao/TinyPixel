@@ -1,5 +1,6 @@
 import React , { PropTypes }  from 'react'
-import { PROCESSES, process } from '../../actions/'
+import PROCESSES from '../../actions/imageProcess/processName'
+import { process } from '../../actions/'
 import GrayScale              from './GrayScale'
 import Scale                  from './Scale'
 import Shear from './Shear'

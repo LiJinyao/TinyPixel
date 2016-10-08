@@ -2,24 +2,21 @@
  * run image process background.
  * 图片坐标定义：原点位于左上角，宽为x轴，高为y轴
  */
-import 'babel-polyfill';
+import 'babel-polyfill'
+import scale     from './scale'
+import grayscale from './grayscale'
+import rotate    from './rotate'
+import translate from './translate'
+import shear     from './shear'
 
-import scale         from './scale'
-import grayscale     from './grayscale'
-import rotate        from './rotate'
-import translate     from './translate'
-import shear from './shear'
-import { PROCESSES } from './processName'
-
-const { GRAYSCALE, SCALE, ROTATE, TRANSLATE, SHEAR } = PROCESSES
 const op = {
   GRAYSCALE: grayscale,
-  SCALE: scale,
-  ROTATE: rotate,
+  SCALE:     scale,
+  ROTATE:    rotate,
   TRANSLATE: translate,
-  SHEAR: shear,
+  SHEAR:     shear,
 }
-onmessage = ({ data: { opName, imageData, option } }) => {
+self.onmessage = ({ data: { opName, imageData, option } }) => {
   const result = op[opName](imageData, option)
   postMessage(result)
 }

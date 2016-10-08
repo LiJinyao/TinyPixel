@@ -1,4 +1,3 @@
-import { copyImageData } from './imageProcess/util'
 // hold the origin image
 export const RECEIVE_ORIGIN_IMAGE = 'RECEIVE_ORIGIN_IMAGE'
 export function receiveOriginImage(image) {
@@ -8,23 +7,22 @@ export function receiveOriginImage(image) {
   }
 }
 export function fileToImageData(file) {
-  return dispatch => {
-      const image = new Image()
-      image.src = URL.createObjectURL(file)
-      const canvas = document.createElement('canvas')
-      image.onload = () => {
-        // set convans size
-        canvas.setAttribute('width', image.width)
-        canvas.setAttribute('height', image.height)
-        const ctx = canvas.getContext('2d')
-        // draw image into canvas
-        ctx.drawImage(image, 0, 0)
-        image.style.display = 'none'
-        // get imageData
-        const imageData = canvas.getContext('2d').getImageData(0, 0, image.width, image.height)
-        console.log(`image width: ${image.width}, height: ${image.height}`)
-        dispatch(receiveOriginImage(imageData))
-      }
+  return (dispatch) => {
+    const image = new Image()
+    image.src = URL.createObjectURL(file)
+    const canvas = document.createElement('canvas')
+    image.onload = () => {
+      // set convans size
+      canvas.setAttribute('width', image.width)
+      canvas.setAttribute('height', image.height)
+      const ctx = canvas.getContext('2d')
+      // draw image into canvas
+      ctx.drawImage(image, 0, 0)
+      image.style.display = 'none'
+      // get imageData
+      const imageData = canvas.getContext('2d').getImageData(0, 0, image.width, image.height)
+      dispatch(receiveOriginImage(imageData))
+    }
   }
 }
 

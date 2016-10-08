@@ -4,7 +4,7 @@
 
 // return coordinate in imageData.data according to position x, y
 export function getCoordinate(width) {
-  return (x, y) => x * 4 + y * width * 4
+  return (x, y) => (x * 4) + (y * width * 4)
 }
 
 // return a generator iterates all pixel position
@@ -12,7 +12,7 @@ export function getPixelPosition(width, height) {
   const positions = function* pos() {
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
-        yield [x, y, x * 4 + y * width * 4]
+        yield [x, y, (x * 4) + (y * width * 4)]
       }
     }
   }
@@ -21,13 +21,12 @@ export function getPixelPosition(width, height) {
 }
 
 export function matrixMultiplication(a, b) {
-  return a.map(row => {
-    return row.map((_, i) => {
-      return row.reduce((sum, cell, j) => {
-        return sum + cell * b[j][i]
-      }, 0)
-    })
-  })
+  return a.map(row =>
+    row.map((_, i) =>
+      row.reduce((sum, cell, j) =>
+        sum + (cell * b[j][i]), 0)
+    )
+  )
 }
 
 /**
@@ -39,7 +38,7 @@ function euclideanMetric(p, q) {
   const [x1, y1, z1] = p
   const [x2, y2, z2] = q
   // 公式：sqrt( (x1-x2)^2+(y1-y2)^2 )
-  const op = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) + (z1 - z2) * (z1 - z2))
+  const op = Math.sqrt(((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2)) + ((z1 - z2) * (z1 - z2)))
   return op
 }
 
@@ -68,7 +67,7 @@ function dM(image, start, end) {
     // 四邻接
     [-1, 0], [1, 0], [0, -1], [0, 1],
     // 对角邻接
-    [-1, -1], [1, 1], [-1, 1], [1, -1]
+    [-1, -1], [1, 1], [-1, 1], [1, -1],
   ]
   // BFS像素矩阵，先匹配d4，再匹配dD，即可实现dM计算
   /**
@@ -90,7 +89,7 @@ function dM(image, start, end) {
   const Q = [] // BFS队列
   Q.push(start) // 从起点开始搜索
   visit[start[0]][start[1]] = 1 // 标记记录过的点
-  while (Q.length != 0) {
+  while (Q.length !== 0) {
     const t = Q.pop()
     if (t[0] === end[0] && t[1] === end[1]) {
       // 找到了终点
@@ -114,7 +113,7 @@ function dM(image, start, end) {
         break
       }
     }
-    dis++
+    dis += 1
   }
   // return null if can't find
   return null

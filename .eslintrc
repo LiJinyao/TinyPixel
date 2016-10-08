@@ -1,0 +1,22 @@
+{
+  "extends": "airbnb",
+  "ecmaFeatures": {
+    "jsx": true
+    },
+  "env": {
+    "browser": true,
+    "node": true,
+    },
+  "plugins": [ "import", "react", "arca"],
+   "rules": {
+        "key-spacing": ["error", { "align": "value", "mode": "minimum" }],
+        "semi": ["error", "never"],
+        "no-multi-spaces": [2, {"exceptions": {"ImportDeclaration": true}}],
+        "arca/import-align": 2,
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
+    },
+    "settings": {
+      "import/resolver": "webpack"
+
+      }
+}

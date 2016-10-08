@@ -1,4 +1,5 @@
 import { fileToImageData } from './getImage'
+
 export const RECEIVE_FILE = 'RECEIVE_FILE'
 export function receiveFile(file) {
   return {
@@ -7,7 +8,7 @@ export function receiveFile(file) {
   }
 }
 export function setImageFile(file) {
-  return dispatch => {
+  return (dispatch) => {
     // convert file to ImageData and tell everyone we receive a file.
     dispatch(fileToImageData(file))
     dispatch(receiveFile(file))

@@ -1,10 +1,11 @@
 /**
  * define process names.
  */
-export const PROCESSES = new Object({
+const PROCESSES = {
   GRAYSCALE: 'GRAYSCALE',
-  SCALE: 'SCALE',
-  ROTATE: 'ROTATE',
+  SCALE:     'SCALE',
+  ROTATE:    'ROTATE',
   TRANSLATE: 'TRANSLATE',
-  SHEAR: 'SHEAR',
-})
+  SHEAR:     'SHEAR',
+}
+export default PROCESSES

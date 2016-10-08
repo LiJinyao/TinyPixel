@@ -3,10 +3,11 @@
  * OptionPanel is an component which shows options according to current image process action.
  */
 import React, { Component, PropTypes } from 'react'
-import Paper                           from 'material-ui/Paper';
-import DropDownMenu                    from 'material-ui/DropDownMenu';
-import MenuItem                        from 'material-ui/MenuItem';
-import { PROCESSES, process }          from '../actions/'
+import Paper                           from 'material-ui/Paper'
+import DropDownMenu                    from 'material-ui/DropDownMenu'
+import MenuItem                        from 'material-ui/MenuItem'
+import PROCESSES from '../actions/imageProcess/processName'
+import { process }          from '../actions/'
 import RaisedButton                    from 'material-ui/RaisedButton'
 import CircularProgress                from 'material-ui/CircularProgress'
 import OptionPanel                     from './Actions/'
