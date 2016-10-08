@@ -5,31 +5,33 @@
 import { getPixelPosition, getCoordinate, matrixMultiplication } from './util'
 
 export const INTERPOLATION = {
-  NONE: 'NONE', // 不插值
+  NONE:             'NONE', // 不插值
   NEAREST_NEIGHBOR: 'NEAREST_NEIGHBOR', // 最临近插值
-  BILINEAR: 'BILINEAR', // 双线性插值
-  BICUBIC: 'BICUBIC', // 双三次插值
+  BILINEAR:         'BILINEAR', // 双线性插值
+  BICUBIC:          'BICUBIC', // 双三次插值
 }
 
 // 不插值，空像素为255 255 255 255
 function noInterpolation(oPosition, dCoor, width, height, dWidth, dHeight, data, dData) {
-  for(const [oX, oY, oIndex] of oPosition()) {
+  const newData = dData
+  for (const [oX, oY, oIndex] of oPosition()) {
     const dIndex = dCoor(Math.round(oX * (dWidth / width)), Math.round(oY * (dHeight / height)))
-    dData[dIndex] = data[oIndex]         // red
-    dData[dIndex + 1] = data[oIndex + 1] // green
-    dData[dIndex + 2] = data[oIndex + 2] // blue
-    dData[dIndex + 3] = data[oIndex + 3] // alpha
+    newData[dIndex] = data[oIndex]         // red
+    newData[dIndex + 1] = data[oIndex + 1] // green
+    newData[dIndex + 2] = data[oIndex + 2] // blue
+    newData[dIndex + 3] = data[oIndex + 3] // alpha
   }
 }
 // 最临近插值
 function nearestNeighbor(dPosition, oCoor, width, height, dWidth, dHeight, data, dData) {
-    for(const [dX, dY, dIndex] of dPosition()) {
-      const index = oCoor(Math.round(dX * (width / dWidth)), Math.round(dY * (height / dHeight)))
-      dData[dIndex] = data[index]         // red
-      dData[dIndex + 1] = data[index + 1] // green
-      dData[dIndex + 2] = data[index + 2] // blue
-      dData[dIndex + 3] = data[index + 3] // alpha
-    }
+  const newData = dData
+  for (const [dX, dY, dIndex] of dPosition()) {
+    const index = oCoor(Math.round(dX * (width / dWidth)), Math.round(dY * (height / dHeight)))
+    newData[dIndex] = data[index]         // red
+    newData[dIndex + 1] = data[index + 1] // green
+    newData[dIndex + 2] = data[index + 2] // blue
+    newData[dIndex + 3] = data[index + 3] // alpha
+  }
 }
 
 // 双线性插值
@@ -43,45 +45,47 @@ function nearestNeighbor(dPosition, oCoor, width, height, dWidth, dHeight, data,
 所以（0，0）所起的决定作用就要小一些， 公式中系数为(1-u)(1-v)=0.25×0.25也体现出了这一特点；
  */
 function bilinear(dPosition, oCoor, width, height, dWidth, dHeight, data, dData) {
-  //f(i+u,j+v) = (1-u)(1-v)f(i,j) + (1-u)vf(i,j+1) + u(1-v)f(i+1,j) + uvf(i+1,j+1)
-    for(const [dX, dY, dIndex] of dPosition()) {
-      const tx = dX * (width / dWidth)
-      const ty = dY * (height / dHeight)
-      const i = Math.floor(tx)
-      const j = Math.floor(ty)
-      const u = tx - i
-      const v = ty - j
-      const a = (1 - u) * (1 - v)
-      const b = (1 - u) * v
-      const c = u * (1 - v)
-      const d = u * v
-      // r, g, b, a
-      for(let s = 0; s <= 3; ++s) {
-        dData[dIndex + s] = a * data[oCoor(i, j) + s]
-        + b * data[oCoor(i, j + 1) + s]
-        + c * data[oCoor(i + 1, j) + s]
-        + d * data[oCoor(i + 1, j + 1) + s]
-      }
+  const newData = dData
+  // f(i+u,j+v) = (1-u)(1-v)f(i,j) + (1-u)vf(i,j+1) + u(1-v)f(i+1,j) + uvf(i+1,j+1)
+  for (const [dX, dY, dIndex] of dPosition()) {
+    const tx = dX * (width / dWidth)
+    const ty = dY * (height / dHeight)
+    const i = Math.floor(tx)
+    const j = Math.floor(ty)
+    const u = tx - i
+    const v = ty - j
+    const a = (1 - u) * (1 - v)
+    const b = (1 - u) * v
+    const c = u * (1 - v)
+    const d = u * v
+    // r, g, b, a
+    for (let s = 0; s <= 3; ++s) {
+      newData[dIndex + s] = (a * data[oCoor(i, j) + s])
+      + (b * data[oCoor(i, j + 1) + s])
+      + (c * data[oCoor(i + 1, j) + s])
+      + (d * data[oCoor(i + 1, j + 1) + s])
     }
+  }
 }
 
 /**
  * 双三次插值（英语：Bicubic interpolation）
  */
 function bicubic(dPosition, oCoor, width, height, dWidth, dHeight, data, dData) {
+  const newData = dData
   // S 函数
-  function S(x) {
+  function s(x) {
     const absX = Math.abs(x)
-    if (0 <= absX && absX < 1) {
-      return 1 - 2 * absX * absX + absX * absX * absX
-    } else if (1 <= absX && absX < 2) {
-      return 4 - 8 * absX + 5 * absX * absX - absX * absX * absX
+    if (absX >= 0 && absX < 1) {
+      return 1 - (2 * absX * absX) + (absX * absX * absX)
+    } else if (absX >= 1 && absX < 2) {
+      return 4 - (8 * absX) + (5 * absX * absX) - (absX * absX * absX)
     }
     // absX >= 2
     return 0
   }
 
-  for(const [dX, dY, dIndex] of dPosition()) {
+  for (const [dX, dY, dIndex] of dPosition()) {
     const tx = dX * (width / dWidth)
     const ty = dY * (height / dHeight)
     const i = Math.floor(tx)
@@ -89,21 +93,21 @@ function bicubic(dPosition, oCoor, width, height, dWidth, dHeight, data, dData) 
     const u = tx - i
     const v = ty - j
     // A矩阵 1 X 4
-    const A = [[S(u + 1), S(u), S(u - 1), S(u - 2)]]
+    const A = [[s(u + 1), s(u), s(u - 1), s(u - 2)]]
     // C矩阵 4 X 1
-    const C = [[S(v + 1)], [S(v)], [S(v - 1)], [S(v - 2)]]
+    const C = [[s(v + 1)], [s(v)], [s(v - 1)], [s(v - 2)]]
 
     // r, g, b, a
-    for(let s = 0; s <= 3; ++s) {
+    for (let p = 0; p <= 3; ++p) {
       // B矩阵 4 X 4
       const B = [
-        [data[oCoor(i - 1, j - 1) + s], data[oCoor(i - 1, j) + s], data[oCoor(i - 1, j + 1) + s], data[oCoor(i - 1, j + 2) + s]],
-        [data[oCoor(i    , j - 1) + s], data[oCoor(i    , j) + s], data[oCoor(i    , j + 1) + s], data[oCoor(i    , j + 2) + s]],
-        [data[oCoor(i + 1, j - 1) + s], data[oCoor(i + 1, j) + s], data[oCoor(i + 1, j + 1) + s], data[oCoor(i + 1, j + 2) + s]],
-        [data[oCoor(i + 2, j - 1) + s], data[oCoor(i + 2, j) + s], data[oCoor(i + 2, j + 1) + s], data[oCoor(i + 2, j + 2) + s]],
+        [data[oCoor(i - 1, j - 1) + p], data[oCoor(i - 1, j) + p], data[oCoor(i - 1, j + 1) + p], data[oCoor(i - 1, j + 2) + p]],
+        [data[oCoor(i    , j - 1) + p], data[oCoor(i    , j) + p], data[oCoor(i    , j + 1) + p], data[oCoor(i    , j + 2) + p]],
+        [data[oCoor(i + 1, j - 1) + p], data[oCoor(i + 1, j) + p], data[oCoor(i + 1, j + 1) + p], data[oCoor(i + 1, j + 2) + p]],
+        [data[oCoor(i + 2, j - 1) + p], data[oCoor(i + 2, j) + p], data[oCoor(i + 2, j + 1) + p], data[oCoor(i + 2, j + 2) + p]],
       ]
       // ABC
-      dData[dIndex + s] = matrixMultiplication(matrixMultiplication(A, B), C)[0][0]
+      newData[dIndex + p] = matrixMultiplication(matrixMultiplication(A, B), C)[0][0]
     }
   }
 }
@@ -126,23 +130,22 @@ export default function scale(imageData, { ratio = 1, type = INTERPOLATION.NEARE
   // 遍历目标图像的坐标，找出对应原图像的像素坐标
   switch (type) {
     case INTERPOLATION.NONE:
-      const dCoor = getCoordinate(dWidth)
-      noInterpolation(oPosition, dCoor, width, height, dWidth, dHeight, data, dData)
-      break;
+      noInterpolation(oPosition, getCoordinate(dWidth), width, height, dWidth, dHeight, data, dData)
+      break
     case INTERPOLATION.BILINEAR:
       bilinear(dPosition, oCoor, width, height, dWidth, dHeight, data, dData)
-      break;
+      break
     case INTERPOLATION.BICUBIC:
       bicubic(dPosition, oCoor, width, height, dWidth, dHeight, data, dData)
-      break;
+      break
     default:
       nearestNeighbor(dPosition, oCoor, width, height, dWidth, dHeight, data, dData)
   }
 
   // const dImage = copyImageData(imageData, dWidth, dHeight, dData)
   return {
-    data: dData,
-    width: dWidth,
+    data:   dData,
+    width:  dWidth,
     height: dHeight,
   }
 }

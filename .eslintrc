@@ -13,7 +13,8 @@
         "semi": ["error", "never"],
         "no-multi-spaces": [2, {"exceptions": {"ImportDeclaration": true}}],
         "arca/import-align": 2,
-        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
+        "no-plusplus": ["error", {"allowForLoopAfterthoughts": true}],
+        "no-mixed-operators":  ["error", {"allowSamePrecedence": true}],
     },
     "settings": {
       "import/resolver": "webpack"
