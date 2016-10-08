@@ -1,12 +1,12 @@
 import React, { Component, PropTypes }   from 'react'
-import Slider                            from 'material-ui/Slider';
+import Slider                            from 'material-ui/Slider'
 
 
 class Rotate extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      angle: 0,
+      angle:  0,
       target: 'ORIGIN',
     }
   }

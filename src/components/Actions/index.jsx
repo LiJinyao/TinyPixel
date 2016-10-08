@@ -1,11 +1,11 @@
-import React , { PropTypes }  from 'react'
-import PROCESSES from '../../actions/imageProcess/processName'
-import { process } from '../../actions/'
-import GrayScale              from './GrayScale'
-import Scale                  from './Scale'
-import Shear from './Shear'
-import Translate from './Translate'
-import Rotate from './Rotate'
+import React, { PropTypes } from 'react'
+import GrayScale            from './GrayScale'
+import Scale                from './Scale'
+import Shear                from './Shear'
+import Translate            from './Translate'
+import Rotate               from './Rotate'
+import PROCESSES            from '../../actions/imageProcess/processName'
+
 /**
  * show action options according to action name.
  */
@@ -14,31 +14,34 @@ const OptionPanel = (props) => {
   switch (props.type) {
     case PROCESSES.GRAYSCALE:
       OptionComp = GrayScale
-      break;
+      break
       // return (<GrayScale {...props}/>)
     case PROCESSES.SCALE:
       OptionComp = Scale
-      break;
+      break
       // return (<Scale {...props}/>)
     case PROCESSES.ROTATE:
       OptionComp = Rotate
-      break;
+      break
     case PROCESSES.TRANSLATE:
       OptionComp = Translate
-      break;
+      break
     case PROCESSES.SHEAR:
       OptionComp = Shear
-      break;
+      break
     default:
       return (<h1>no option</h1>)
   }
   return (
     <div className="option-panel">
-      <OptionComp {...props}/>
+      <OptionComp {...props} />
     </div>
   )
 }
-
+/**
+ * no-unused-prop-types sometimes fails to detect props in functions on stateless components
+ * https://github.com/yannickcr/eslint-plugin-react/issues/885
+ */
 OptionPanel.propTypes = {
   // type is one of PROCESSES.
   type:               PropTypes.string.isRequired,

@@ -1,28 +1,31 @@
+import Slider                            from 'material-ui/Slider'
 import React, { Component, PropTypes }   from 'react'
-import Slider                            from 'material-ui/Slider';
-import {RadioButton, RadioButtonGroup}   from 'material-ui/RadioButton';
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
+
 const DIRC = {
   HORIZONTAL: 'HORIZONTAL',
-  VERTICAL: 'VERTICAL',
+  VERTICAL:   'VERTICAL',
 }
 class Shear extends Component {
   constructor(props) {
     super(props)
     this.state = {
       direction: DIRC.HORIZONTAL,
-      offset: 0,
-      target: 'ORIGIN',
+      offset:    0,
+      target:    'ORIGIN',
     }
+    this.onOffsetChange = this.handleOffsetChange.bind(this)
+    this.onDirectionChange = this.handleDirectionChange.bind(this)
   }
   componentDidMount() {
     // init option.
     this.props.handleOptionChange(this.state)
   }
   componentWillReceiveProps(nextProps) {
-    if(nextProps.image !== this.props.image) {
+    if (nextProps.image !== this.props.image) {
       this.setState({
         direction: DIRC.HORIZONTAL,
-        offset: 0,
+        offset:    0,
       })
       this.props.handleOptionChange(this.state)
     }
@@ -39,36 +42,36 @@ class Shear extends Component {
   }
 
   render() {
-    const { width, height } = this.props.image
     return (
       <div>
         <RadioButtonGroup
-        name="shearDirection"
-        defaultSelected={this.state.direction}
-        onChange={this.handleDirectionChange.bind(this)}
+          name="shearDirection"
+          defaultSelected={this.state.direction}
+          onChange={this.onDirectionChange}
         >
           <RadioButton
             value={DIRC.HORIZONTAL}
             label="水平"
             disabled={this.props.disabled}
-            style={{marginBottom: 16}}
-            />
+            style={{ marginBottom: 16 }}
+          />
           <RadioButton
             value={DIRC.VERTICAL}
             label="垂直"
             disabled={this.props.disabled}
-            style={{marginBottom: 16}}
-            />
+            style={{ marginBottom: 16 }}
+          />
         </RadioButtonGroup>
         <span>{`偏移角：${this.state.offset}°`}</span>
         <Slider
-        defaultValue={0}
-        min={-89}
-        max={89}
-        step={1}
-        value={this.state.offset}
-        onChange={this.handleOffsetChange.bind(this)}
-        disabled={this.props.disabled}/>
+          defaultValue={0}
+          min={-89}
+          max={89}
+          step={1}
+          value={this.state.offset}
+          onChange={this.onOffsetChange}
+          disabled={this.props.disabled}
+        />
       </div>
 
     )
@@ -76,5 +79,6 @@ class Shear extends Component {
 }
 Shear.propTypes = {
   handleOptionChange: PropTypes.func.isRequired,
+  disabled:           PropTypes.bool.isRequired,
 }
 export default Shear

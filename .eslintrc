@@ -1,13 +1,18 @@
 {
   "extends": "airbnb",
-  "ecmaFeatures": {
-    "jsx": true
+  "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+          "jsx": true
+      }
     },
   "env": {
+    "es6": true,
     "browser": true,
     "node": true,
     },
-  "plugins": [ "import", "react", "arca"],
+  "plugins": ["react", "arca", "import"],
    "rules": {
         "key-spacing": ["error", { "align": "value", "mode": "minimum" }],
         "semi": ["error", "never"],
@@ -17,7 +22,9 @@
         "no-mixed-operators":  ["error", {"allowSamePrecedence": true}],
     },
     "settings": {
-      "import/resolver": "webpack"
-
+      // ignore jsx extension: https://github.com/benmosher/eslint-plugin-import/issues/352
+      "import/resolver": {
+            "webpack": "webpack.dev.config.js"
+        }
       }
 }

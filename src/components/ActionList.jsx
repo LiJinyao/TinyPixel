@@ -2,14 +2,14 @@
  * all image process action shows in this component.
  * OptionPanel is an component which shows options according to current image process action.
  */
+import RaisedButton                    from 'material-ui/RaisedButton'
+import CircularProgress                from 'material-ui/CircularProgress'
 import React, { Component, PropTypes } from 'react'
 import Paper                           from 'material-ui/Paper'
 import DropDownMenu                    from 'material-ui/DropDownMenu'
 import MenuItem                        from 'material-ui/MenuItem'
-import PROCESSES from '../actions/imageProcess/processName'
-import { process }          from '../actions/'
-import RaisedButton                    from 'material-ui/RaisedButton'
-import CircularProgress                from 'material-ui/CircularProgress'
+import PROCESSES                       from '../actions/imageProcess/processName'
+import { process }                     from '../actions/'
 import OptionPanel                     from './Actions/'
 // map process name to a humanfridendly name
 const processName = new Map([
@@ -24,7 +24,8 @@ const processName = new Map([
 const pros = Object.keys(PROCESSES)
 
 const items = []
-pros.forEach((pro, i) => items.push(<MenuItem key={i+1} value={i+1} primaryText={processName.get(pro)} />))
+pros.forEach((pro, i) =>
+items.push(<MenuItem key={i + 1} value={i + 1} primaryText={processName.get(pro)} />))
 
 class ActionList extends Component {
   constructor(props) {
@@ -32,8 +33,11 @@ class ActionList extends Component {
     this.state = {
       actionValue: 1,
       applyAction: false,
-      option: {target: 'PROCESSED'}, // target:ORIGIN, PROCESSED 操作的图像源，可以是原图也可以是处理过后的图
+      option:      { target: 'PROCESSED' }, // target:ORIGIN, PROCESSED 操作的图像源，可以是原图也可以是处理过后的图
     }
+    this.onActionChange = this.handleActionChange.bind(this)
+    this.onApplyAction = this.handleApplyAction.bind(this)
+    this.onOptionChange = this.handleOptionChange.bind(this)
   }
   componentDidMount() {
     // Do some init work
@@ -42,7 +46,7 @@ class ActionList extends Component {
     this.setState({
       actionValue: value,
       // reset option.
-      option: {},
+      option:      {},
     })
   }
   handleApplyAction() {
@@ -56,45 +60,50 @@ class ActionList extends Component {
     const disable = (!hasImage || processing)
     return (
       <Paper
-      className="action-list-panel"
-      zDepth={2}
+        className="action-list-panel"
+        zDepth={2}
       >
-      <div>
-        {!processing &&
-          <p className="choose-action">选择操作</p>
-        }
+        <div>
+          {!processing &&
+            <p className="choose-action">选择操作</p>
+          }
 
-        {processing &&
-          <div>
-            <p className="choose-action">正在处理</p>
-            <CircularProgress size={0.5} style={{verticalAlign: 'middle'}}/>
-          </div>
-        }
-      </div>
-
-      <DropDownMenu
-      style={{width: 182}}
-      value={this.state.actionValue}
-      onChange={this.handleActionChange.bind(this)}
-      autoWidth
-      disabled={disable}
-      >
-      {items}
-      </DropDownMenu>
-      <RaisedButton disabled={disable} secondary label="应用" onClick={this.handleApplyAction.bind(this)}/>
-      <OptionPanel
-      type={pros[this.state.actionValue - 1]}
-      handleOptionChange={this.handleOptionChange.bind(this)}
-      disabled={disable}
-      image={image}
-      />
+          {processing &&
+            <div>
+              <p className="choose-action">正在处理</p>
+              <CircularProgress size={0.5} style={{ verticalAlign: 'middle' }} />
+            </div>
+          }
+        </div>
+        <DropDownMenu
+          style={{ width: 182 }}
+          value={this.state.actionValue}
+          onChange={this.onActionChange}
+          autoWidth
+          disabled={disable}
+        >
+          {items}
+        </DropDownMenu>
+        <RaisedButton
+          disabled={disable}
+          secondary
+          label="应用"
+          onClick={this.onApplyAction}
+        />
+        <OptionPanel
+          type={pros[this.state.actionValue - 1]}
+          handleOptionChange={this.onOptionChange}
+          disabled={disable}
+          image={image}
+        />
       </Paper>
     )
   }
 }
 ActionList.propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    hasImage: PropTypes.bool.isRequired,
+  dispatch:   PropTypes.func.isRequired,
+  hasImage:   PropTypes.bool.isRequired,
+  processing: PropTypes.bool.isRequired,
 }
 
 export default ActionList
