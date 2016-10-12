@@ -5,11 +5,11 @@ function histogram(imageData) {
   /**
    * r,g,b数组长度为255，从0～255保存了每一个通道值出现的次数
    */
-  const r = new Array(255)
+  const r = new Array(256)
   r.fill(0)
-  const g = new Array(255)
+  const g = new Array(256)
   g.fill(0)
-  const b = new Array(255)
+  const b = new Array(256)
   b.fill(0)
   const data = imageData.data
   for (let i = 0; i < data.length; i += 4) {
@@ -20,6 +20,9 @@ function histogram(imageData) {
   }
   // 结果保存在一个对象中
   const rgbInfo = {
+    width:       imageData.width,
+    height:      imageData.height,
+    pixelNumber: imageData.data.length / 4,
     r,
     g,
     b,
