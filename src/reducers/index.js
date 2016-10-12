@@ -4,6 +4,7 @@ import {
   RECEIVE_ORIGIN_IMAGE,
   RECEIVE_PROCESSED_IMAGE,
   PROCESS_START,
+  RECEIVE_IMAGE_INFO,
 } from '../actions'
 
 function fileRepo(state = {
@@ -37,11 +38,21 @@ function image(state = {
   }
 }
 
+function imageInfo(state = {
+  info: null,
+}, action) {
+  switch (action.type) {
+    case RECEIVE_IMAGE_INFO:
+      return Object.assign({}, state, { info: action.info })
+    default:
+      return state
+  }
+}
 
 const rootReducer = combineReducers({
   fileRepo,
   image,
-  // processedImage,
+  imageInfo,
 })
 
 export default rootReducer

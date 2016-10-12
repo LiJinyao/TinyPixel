@@ -1,4 +1,6 @@
 // hold the origin image
+import { getImageInfo } from './getImageInfo'
+
 export const RECEIVE_ORIGIN_IMAGE = 'RECEIVE_ORIGIN_IMAGE'
 export function receiveOriginImage(image) {
   return {
@@ -22,6 +24,7 @@ export function fileToImageData(file) {
       // get imageData
       const imageData = canvas.getContext('2d').getImageData(0, 0, image.width, image.height)
       dispatch(receiveOriginImage(imageData))
+      dispatch(getImageInfo())
     }
   }
 }

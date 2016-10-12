@@ -20,7 +20,7 @@ export function copyImageData(src, width = src.width, height = src.height, data 
 const worker = new ProcessWorker()
 /**
  * process imageData
- * @param  {String} methodName a process method name definded in PROCESSES
+ * @param  {String} methodName a process method name definded in processName.js
  * @param  {Object} option     an option for process actions. the target indicate
  *                             iamge source ORIGIN, PROCESSED
  * @return {funtcion}          redux thunk function.

@@ -10,7 +10,7 @@ import Download                                from 'material-ui/svg-icons/file/
 import { setImageFile, receiveProcessedImage } from '../actions'
 import MainViewer                              from '../containers/MainViewer'
 import ActionList                              from '../containers/ActionList'
-
+import ImageInfo                               from './ImageInfo'
 class App extends Component {
   constructor(props) {
     super(props)
@@ -88,6 +88,7 @@ class App extends Component {
         />
         <MainViewer />
         <ActionList />
+        <ImageInfo />
         <input
           type="file"
           className="appbar-fileinput"
