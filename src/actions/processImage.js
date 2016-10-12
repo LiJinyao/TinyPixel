@@ -2,6 +2,7 @@
 
 import ProcessWorker             from 'worker-loader?inline!./imageProcess/worker'
 import { receiveProcessedImage } from './getImage'
+import { getImageInfo }          from './getImageInfo'
 
 export const PROCESS_START = 'PROCESS_START'
 export function processStart() {
@@ -47,6 +48,7 @@ export function process(methodName, option) {
     worker.onmessage = (({ data: { width, height, data } }) => {
       const resultImage = copyImageData(null, width, height, data)
       dispatch(receiveProcessedImage(resultImage))
+      dispatch(getImageInfo())
     })
   }
 }
