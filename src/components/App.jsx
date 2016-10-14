@@ -7,10 +7,11 @@ import MoreVertIcon                            from 'material-ui/svg-icons/navig
 import OpenFileIcon                            from 'material-ui/svg-icons/file/file-upload'
 import ResetIcon                               from 'material-ui/svg-icons/action/restore'
 import Download                                from 'material-ui/svg-icons/file/file-download'
-import { setImageFile, receiveProcessedImage } from '../actions'
+import { setImageFile, resetImage } from '../actions'
 import MainViewer                              from '../containers/MainViewer'
 import ActionList                              from '../containers/ActionList'
 import ImageInfo                               from './ImageInfo'
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -45,7 +46,7 @@ class App extends Component {
         this.handleFileSvae()
         break
       case 'RESET':
-        this.props.dispatch(receiveProcessedImage(null))
+        this.props.dispatch(resetImage())
         break
       default:
     }

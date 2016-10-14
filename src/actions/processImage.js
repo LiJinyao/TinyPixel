@@ -52,3 +52,10 @@ export function process(methodName, option) {
     })
   }
 }
+
+export function resetImage() {
+  return (dispatch) => {
+    dispatch(receiveProcessedImage(null))
+    dispatch(getImageInfo())
+  }
+}

@@ -29,6 +29,7 @@ export function fileToImageData(file) {
   }
 }
 
+
 export const RECEIVE_PROCESSED_IMAGE = 'RECEIVE_PROCESSED_IMAGE'
 // image is an imageData object.
 export function receiveProcessedImage(image) {
