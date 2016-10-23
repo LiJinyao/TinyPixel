@@ -6,6 +6,7 @@ const TYPE = {
   PREWITT:  'PREWITT',
   SOBEL:    'SOBEL',
   LAPACIAN: 'LAPACIAN',
+  CANNY:    'CANNY',
 }
 class Sharpen extends Component {
   constructor(props) {
@@ -63,6 +64,12 @@ class Sharpen extends Component {
           <RadioButton
             value={TYPE.LAPACIAN}
             label="Lapacian"
+            disabled={this.props.disabled}
+            style={{ marginBottom: 16 }}
+          />
+          <RadioButton
+            value={TYPE.CANNY}
+            label="Canny(未完成)"
             disabled={this.props.disabled}
             style={{ marginBottom: 16 }}
           />
