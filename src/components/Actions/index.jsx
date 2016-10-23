@@ -4,6 +4,7 @@ import Scale                from './Scale'
 import Shear                from './Shear'
 import Translate            from './Translate'
 import Rotate               from './Rotate'
+import Sharpen              from './Sharpen'
 import PROCESSES            from '../../actions/imageProcess/processName'
 
 /**
@@ -28,6 +29,9 @@ const OptionPanel = (props) => {
       break
     case PROCESSES.SHEAR:
       OptionComp = Shear
+      break
+    case PROCESSES.SHARPEN:
+      OptionComp = Sharpen
       break
     default:
       return (<h1>no option</h1>)

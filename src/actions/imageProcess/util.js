@@ -28,6 +28,27 @@ export function matrixMultiplication(a, b) {
     )
   )
 }
+/**
+ * 根据中心点生成空间滤波算法中3X3矩阵的9个点的坐标
+ * @param  {[object]} center 一个有x，y属性的对象，代表一个中心点
+ * @param  {number} width  图像宽度
+ * @return {iterator}      坐标迭代器
+ */
+export function getSubRangePixelPosition(center, width) {
+  const startX = center.x - 1
+  const startY = center.y - 1
+  const endX = center.x + 1
+  const endY = center.y + 1
+  const positions = function* pos() {
+    for (let y = startY; y <= endY; y++) {
+      for (let x = startX; x <= endX; x++) {
+        yield [x, y, (x * 4) + (y * width * 4)]
+      }
+    }
+  }
+  positions[Symbol.iterator] = positions
+  return positions
+}
 /* eslint-disable */
 /**
  * 计算两点间的欧几里得距离

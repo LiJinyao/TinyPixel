@@ -8,6 +8,7 @@ import grayscale from './grayscale'
 import rotate    from './rotate'
 import translate from './translate'
 import shear     from './shear'
+import sharpen   from './sharpen'
 
 const op = {
   GRAYSCALE: grayscale,
@@ -15,6 +16,7 @@ const op = {
   ROTATE:    rotate,
   TRANSLATE: translate,
   SHEAR:     shear,
+  SHARPEN:   sharpen,
 }
 self.onmessage = ({ data: { opName, imageData, option } }) => {
   const result = op[opName](imageData, option)

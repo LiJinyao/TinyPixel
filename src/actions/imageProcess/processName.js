@@ -7,5 +7,6 @@ const PROCESSES = {
   ROTATE:    'ROTATE',
   TRANSLATE: 'TRANSLATE',
   SHEAR:     'SHEAR',
+  SHARPEN:   'SHARPEN',
 }
 export default PROCESSES
