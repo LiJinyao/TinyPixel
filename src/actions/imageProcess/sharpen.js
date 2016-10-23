@@ -121,7 +121,7 @@ function sobel(data, width, height) {
                           + (2 * autoData(x, y + 1, i))
                           + autoData(x + 1, y + 1, i))))
 
-      dData[index + i] = GX + GY
+      dData[index + i] = Math.round(Math.sqrt((GX * GX) + (GY * GY)))
     }
     // alpha
     dData[index + 3] = 255
