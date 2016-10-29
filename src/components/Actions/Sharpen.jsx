@@ -69,7 +69,7 @@ class Sharpen extends Component {
           />
           <RadioButton
             value={TYPE.CANNY}
-            label="Canny(未完成)"
+            label="Canny"
             disabled={this.props.disabled}
             style={{ marginBottom: 16 }}
           />

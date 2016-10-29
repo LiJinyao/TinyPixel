@@ -3,16 +3,16 @@
  */
 
 // return coordinate in imageData.data according to position x, y
-export function getCoordinate(width) {
-  return (x, y) => (x * 4) + (y * width * 4)
+export function getCoordinate(width, offset = 4) {
+  return (x, y) => (x * offset) + (y * width * offset)
 }
 
 // return a generator iterates all pixel position
-export function getPixelPosition(width, height) {
+export function getPixelPosition(width, height, offset = 4) {
   const positions = function* pos() {
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
-        yield [x, y, (x * 4) + (y * width * 4)]
+        yield [x, y, (x * offset) + (y * width * offset)]
       }
     }
   }
