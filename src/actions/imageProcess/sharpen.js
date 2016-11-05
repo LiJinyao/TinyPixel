@@ -73,16 +73,7 @@ function findIntensityGradient(data, width, height) {
   const coor = getCoordinate(width, 1)
   const autoData = getData(data, coor, width, height)
   const position = getPixelPosition(width, height, 1)
-  const pi18 = Math.PI / 8
-  const pi78 = 7 * Math.PI / 8
-  const pi38 = 3 * Math.PI / 8
-  const pi58 = 5 * Math.PI / 8
-  const pi14 = Math.PI / 4
-  const pi12 = Math.PI / 2
-  const pi34 = 3 * Math.PI / 4
   for (const [x, y, index] of position()) {
-    // const GX = Math.abs(autoData(x + 1, y + 1) - autoData(x, y))
-    // const GY = Math.abs(autoData(x + 1, y) - autoData(x, y + 1))
     const GX = -autoData(x - 1, y - 1)
               - (2 * autoData(x - 1, y))
               - autoData(x - 1, y + 1)
@@ -96,14 +87,8 @@ function findIntensityGradient(data, width, height) {
                 - autoData(x - 1, y + 1)
                 - (2 * autoData(x, y + 1))
                 - autoData(x + 1, y + 1)
-    // const GX = -autoData(x, y) - autoData(x + 1, y) + autoData(x, y + 1) + autoData(x + 1, y + 1)
-    // const GY = autoData(x, y) - autoData(x + 1, y) + autoData(x, y + 1) - autoData(x + 1, y + 1)
     dData[index] = Math.round(Math.sqrt((GX * GX) + (GY * GY)))
-    /**
-     * 0: -pi/8, pi/8
-     * 45: 4/pi ~ pi/2
-     * 90:
-     */
+
     let angle = Math.atan2(GY, GX) * 180 / Math.PI
 
     if (((angle < 22.5) && (angle > -22.5)) || (angle > 157.5) || (angle < -157.5)) {
