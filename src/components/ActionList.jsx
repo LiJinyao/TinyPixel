@@ -19,6 +19,7 @@ const processName = new Map([
   [PROCESSES.TRANSLATE, '平移'],
   [PROCESSES.SHEAR, '偏移变换'],
   [PROCESSES.SHARPEN, '锐化'],
+  [PROCESSES.WAVEFILTERING, '频率域滤波'],
 ])
 
 // supported process name list.
