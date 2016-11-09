@@ -1,11 +1,14 @@
 import React, { Component, PropTypes }   from 'react'
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton'
+import Slider                            from 'material-ui/Slider'
 
 const TYPE = {
-  LOW_PASS_FILTER:            'LOW_PASS_FILTER',
-  HIGH_PASS_FILTER:           'HIGH_PASS_FILTER',
-  GAUSS_LOW_PASS_FILTERSOBEL: 'GAUSS_LOW_PASS_FILTERSOBEL',
-  GAUSS_HIGH_PASS_FILTER:     'GAUSS_HIGH_PASS_FILTER',
+  LOW_PASS_FILTER:              'LOW_PASS_FILTER',
+  HIGH_PASS_FILTER:             'HIGH_PASS_FILTER',
+  GAUSS_LOW_PASS_FILTER:        'GAUSS_LOW_PASS_FILTER',
+  GAUSS_HIGH_PASS_FILTER:       'GAUSS_HIGH_PASS_FILTER',
+  GAUSS_FILTER:                 'GAUSS_FILTER',
+  BUTTER_WORTH_LOW_PASS_FILTER: 'BUTTER_WORTH_LOW_PASS_FILTER',
 }
 class WaveFiltering extends Component {
   constructor(props) {
@@ -13,8 +16,10 @@ class WaveFiltering extends Component {
     this.state = {
       type:   TYPE.LOW_PASS_FILTER,
       target: 'ORIGIN',
+      d:      20,
     }
     this.onTypeChange = this.handleTypeChange.bind(this)
+    this.onDchange = this.handleDChange.bind(this)
   }
   componentDidMount() {
     // init option.
@@ -33,7 +38,11 @@ class WaveFiltering extends Component {
     this.setState({ type })
     this.props.handleOptionChange({ type })
   }
-
+  handleDChange(event, val) {
+    this.setState({ d: val }, () => {
+      this.props.handleOptionChange(this.state)
+    })
+  }
   render() {
     return (
       <div>
@@ -66,7 +75,29 @@ class WaveFiltering extends Component {
             disabled={this.props.disabled}
             style={{ marginBottom: 16 }}
           />
+          <RadioButton
+            value={TYPE.GAUSS_FILTER}
+            label="空间域高斯滤波"
+            disabled={this.props.disabled}
+            style={{ marginBottom: 16 }}
+          />
+          <RadioButton
+            value={TYPE.BUTTER_WORTH_LOW_PASS_FILTER}
+            label="ButterWorth低通滤波器"
+            disabled={this.props.disabled}
+            style={{ marginBottom: 16 }}
+          />
         </RadioButtonGroup>
+        <span>{`D0： ${this.state.d}`}</span>
+        <Slider
+          max={200}
+          min={1}
+          defaultValue={20}
+          step={1}
+          value={this.state.d}
+          onChange={this.onDchange}
+          disabled={this.props.disabled}
+        />
       </div>
     )
   }
