@@ -9,5 +9,6 @@ const PROCESSES = {
   SHEAR:         'SHEAR',
   SHARPEN:       'SHARPEN',
   WAVEFILTERING: 'WAVEFILTERING',
+  NOISE:         'NOISE',
 }
 export default PROCESSES

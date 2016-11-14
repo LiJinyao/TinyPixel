@@ -10,6 +10,7 @@ import translate     from './translate'
 import shear         from './shear'
 import sharpen       from './sharpen'
 import waveFiltering from './waveFiltering'
+import noise         from './noise'
 
 const op = {
   GRAYSCALE:     grayscale,
@@ -19,6 +20,7 @@ const op = {
   SHEAR:         shear,
   SHARPEN:       sharpen,
   WAVEFILTERING: waveFiltering,
+  NOISE:         noise,
 }
 self.onmessage = ({ data: { opName, imageData, option } }) => {
   const result = op[opName](imageData, option)

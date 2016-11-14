@@ -6,6 +6,7 @@ import Translate            from './Translate'
 import Rotate               from './Rotate'
 import Sharpen              from './Sharpen'
 import WaveFiltering        from './WaveFiltering'
+import Noise                from './Noise'
 import PROCESSES            from '../../actions/imageProcess/processName'
 
 /**
@@ -36,6 +37,9 @@ const OptionPanel = (props) => {
       break
     case PROCESSES.WAVEFILTERING:
       OptionComp = WaveFiltering
+      break
+    case PROCESSES.NOISE:
+      OptionComp = Noise
       break
     default:
       return (<h1>no option</h1>)
