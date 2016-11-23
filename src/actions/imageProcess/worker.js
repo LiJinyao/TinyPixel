@@ -11,6 +11,7 @@ import shear         from './shear'
 import sharpen       from './sharpen'
 import waveFiltering from './waveFiltering'
 import noise         from './noise'
+import morphology    from './morphology'
 
 const op = {
   GRAYSCALE:     grayscale,
@@ -21,6 +22,7 @@ const op = {
   SHARPEN:       sharpen,
   WAVEFILTERING: waveFiltering,
   NOISE:         noise,
+  MORPHOLOGY:    morphology,
 }
 self.onmessage = ({ data: { opName, imageData, option } }) => {
   const result = op[opName](imageData, option)

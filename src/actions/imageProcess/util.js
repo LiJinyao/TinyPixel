@@ -7,6 +7,14 @@ export function getCoordinate(width, offset = 4) {
   return (x, y) => (x * offset) + (y * width * offset)
 }
 
+export function getPositionFromIndex(width) {
+  return (index) => {
+    const x = (index % width)
+    const y = (Math.floor(index / width))
+    return { x, y }
+  }
+}
+
 // return a generator iterates all pixel position
 export function getPixelPosition(width, height, offset = 4) {
   const positions = function* pos() {

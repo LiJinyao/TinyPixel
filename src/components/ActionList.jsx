@@ -21,6 +21,7 @@ const processName = new Map([
   [PROCESSES.SHARPEN, '锐化'],
   [PROCESSES.WAVEFILTERING, '频率域滤波'],
   [PROCESSES.NOISE, '噪声'],
+  [PROCESSES.MORPHOLOGY, '形态学'],
 ])
 
 // supported process name list.
