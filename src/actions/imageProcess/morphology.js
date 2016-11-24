@@ -273,6 +273,7 @@ function roughening(data, width, height) {
   return reversed
 }
 
+// K3M
 function skeleton(data, width, height) {
   const dData = data.slice()
   for (let i = 0; i < data.length; ++i) {
@@ -295,9 +296,7 @@ function skeleton(data, width, height) {
   const lookup = [a0, a1, a2, a3, a4, a5]
   const position = getPixelPosition(width, height, 1)
   const coor = getCoordinate(width, 1)
-  function findTest(a) {
-    return w => w === a
-  }
+
   function getWeight(x, y, image) {
     const nei = traverse8Neighbor(x, y, width, height)
     let weight = 0
@@ -330,46 +329,6 @@ function skeleton(data, width, height) {
         }
       })
     }
-    // // Phase 1
-    // border.forEach((i) => {
-    //   const weight = getWeight(i[0], i[1], dData)
-    //   if (a1.find(findTest(weight))) {
-    //     dData[coor(i[0], i[1])] = 0
-    //     changed = true
-    //   }
-    // })
-    // // Phase 2
-    // border.forEach((i) => {
-    //   const weight = getWeight(i[0], i[1], dData)
-    //   if (a2.find(findTest(weight))) {
-    //     dData[coor(i[0], i[1])] = 0
-    //     changed = true
-    //   }
-    // })
-    // // Phase 3
-    // border.forEach((i) => {
-    //   const weight = getWeight(i[0], i[1], dData)
-    //   if (a3.find(findTest(weight))) {
-    //     dData[coor(i[0], i[1])] = 0
-    //     changed = true
-    //   }
-    // })
-    // // Phase 4
-    // border.forEach((i) => {
-    //   const weight = getWeight(i[0], i[1], dData)
-    //   if (a4.find(findTest(weight))) {
-    //     dData[coor(i[0], i[1])] = 0
-    //     changed = true
-    //   }
-    // })
-    // // Phase 5
-    // border.forEach((i) => {
-    //   const weight = getWeight(i[0], i[1], dData)
-    //   if (a5.find(findTest(weight))) {
-    //     dData[coor(i[0], i[1])] = 0
-    //     changed = true
-    //   }
-    // })
   }
   for (let i = 0; i < data.length; ++i) {
     dData[i] = dData[i] === 0 ? 0 : 255
