@@ -19,7 +19,7 @@ function traverse8Neighbor(x, y, width, height) {
       const tx = x + steps[i][0]
       const ty = y + steps[i][1]
       if (tx >= 0 && ty >= 0 && tx < width && ty < height) {
-        yield [tx, ty]
+        yield [tx, ty, i]
       }
     }
   }
@@ -167,6 +167,9 @@ function thinning(data, width, height) {
         sp += 1
       }
     }
+    if (neighbour[7] === 0 && neighbour[0] === 1) {
+      sp += 1
+    }
     np += neighbour[7]
 
     p246 = neighbour[0] * neighbour[2] * neighbour[4]
@@ -197,6 +200,9 @@ function thinning(data, width, height) {
       if (neighbour[i] === 0 && neighbour[i + 1] === 1) {
         sp += 1
       }
+    }
+    if (neighbour[7] === 0 && neighbour[0] === 1) {
+      sp += 1
     }
     np += neighbour[7]
 
@@ -253,6 +259,124 @@ function thinning(data, width, height) {
   return dData
 }
 
+function roughening(data, width, height) {
+  let reversed = new Uint8ClampedArray(width * height)
+  for (let i = 0; i < data.length; ++i) {
+    reversed[i] = data[i] === 0 ? 255 : 0
+  }
+  reversed = thinning(reversed, width, height)
+
+  for (let i = 0; i < reversed.length; ++i) {
+    reversed[i] = reversed[i] === 0 ? 255 : 0
+  }
+
+  return reversed
+}
+
+function skeleton(data, width, height) {
+  const dData = data.slice()
+  for (let i = 0; i < data.length; ++i) {
+    dData[i] = data[i] === 0 ? 0 : 1
+  }
+  const N = [1, 2, 4, 8, 16, 32, 64, 128]
+  const a0 = new Set([3, 6, 7, 12, 14, 15, 24, 28, 30, 31, 48, 56, 60, 62, 63, 96, 112,
+    120, 124, 126, 127, 129, 131, 135, 143, 159, 191, 192, 193, 195, 199, 207,
+    223, 224, 225, 227, 231, 239, 240, 241, 243, 247, 248, 249, 251, 252, 253, 254])
+  const a1 = new Set([7, 14, 28, 56, 112, 131, 193, 224])
+  const a2 = new Set([7, 14, 15, 28, 30, 56, 60, 112, 120, 131, 135,
+    193, 195, 224, 225, 240])
+  const a3 = new Set([7, 14, 15, 28, 30, 31, 56, 60, 62, 112, 120, 124, 131, 135, 143,
+    193, 195, 199, 224, 225, 227, 240, 241, 248])
+  const a4 = new Set([7, 14, 15, 28, 30, 31, 56, 60, 62, 63, 112, 120, 124, 126, 131, 135, 143,
+    159, 193, 195, 199, 207, 224, 225, 227, 231, 240, 241, 243, 248, 249, 252])
+  const a5 = new Set([7, 14, 15, 28, 30, 31, 56, 60, 62, 63, 112, 120, 124, 126, 131, 135, 143, 159,
+    191, 193, 195, 199, 207, 224, 225, 227, 231, 239, 240, 241, 243, 248, 249,
+    251, 252, 254])
+  const lookup = [a0, a1, a2, a3, a4, a5]
+  const position = getPixelPosition(width, height, 1)
+  const coor = getCoordinate(width, 1)
+  function findTest(a) {
+    return w => w === a
+  }
+  function getWeight(x, y, image) {
+    const nei = traverse8Neighbor(x, y, width, height)
+    let weight = 0
+    for (const [tx, ty, i] of nei()) {
+      weight += image[coor(tx, ty)] * N[i]
+    }
+    return weight
+  }
+  let changed = true
+
+  while (changed) {
+    changed = false
+    // Phase 0 mark border
+    const border = []
+    for (const [x, y, index] of position()) {
+      if (dData[index] === 1) {
+        const weight = getWeight(x, y, dData)
+        if (a0.has(weight)) {
+          // is border
+          border.push([x, y])
+        }
+      }
+    }
+    for (let t = 1; t < 5; ++t) {
+      border.forEach((i) => {
+        const weight = getWeight(i[0], i[1], dData)
+        if (lookup[t].has(weight)) {
+          dData[coor(i[0], i[1])] = 0
+          changed = true
+        }
+      })
+    }
+    // // Phase 1
+    // border.forEach((i) => {
+    //   const weight = getWeight(i[0], i[1], dData)
+    //   if (a1.find(findTest(weight))) {
+    //     dData[coor(i[0], i[1])] = 0
+    //     changed = true
+    //   }
+    // })
+    // // Phase 2
+    // border.forEach((i) => {
+    //   const weight = getWeight(i[0], i[1], dData)
+    //   if (a2.find(findTest(weight))) {
+    //     dData[coor(i[0], i[1])] = 0
+    //     changed = true
+    //   }
+    // })
+    // // Phase 3
+    // border.forEach((i) => {
+    //   const weight = getWeight(i[0], i[1], dData)
+    //   if (a3.find(findTest(weight))) {
+    //     dData[coor(i[0], i[1])] = 0
+    //     changed = true
+    //   }
+    // })
+    // // Phase 4
+    // border.forEach((i) => {
+    //   const weight = getWeight(i[0], i[1], dData)
+    //   if (a4.find(findTest(weight))) {
+    //     dData[coor(i[0], i[1])] = 0
+    //     changed = true
+    //   }
+    // })
+    // // Phase 5
+    // border.forEach((i) => {
+    //   const weight = getWeight(i[0], i[1], dData)
+    //   if (a5.find(findTest(weight))) {
+    //     dData[coor(i[0], i[1])] = 0
+    //     changed = true
+    //   }
+    // })
+  }
+  for (let i = 0; i < data.length; ++i) {
+    dData[i] = dData[i] === 0 ? 0 : 255
+  }
+  return dData
+}
+
 export default function morphology(imageData, { type = 'CONNECTED_COMPONENT' } = {}) {
   const { data, width, height } = imageData
   let BW = new Uint8ClampedArray(width * height)
@@ -271,6 +395,12 @@ export default function morphology(imageData, { type = 'CONNECTED_COMPONENT' } =
       break
     case 'THINNING':
       BW = thinning(BW, width, height)
+      break
+    case 'ROUGHENING':
+      BW = roughening(BW, width, height)
+      break
+    case 'EXTRACT_SKELETON':
+      BW = skeleton(BW, width, height)
       break
     default:
   }
